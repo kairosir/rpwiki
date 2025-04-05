@@ -28,7 +28,7 @@ export default function Header() {
                 Сообщество
               </Link>
               <Link href="/support" className="text-sm hover:text-primary transition-colors">
-                Поддержка
+                Поддержка пупсиков
               </Link>
             </nav>
           </div>
