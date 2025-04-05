@@ -381,3 +381,21 @@ export default function HelpersPage() {
   )
 }
 
+export function SupportPage() {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div>
+        <h1>Поддержка</h1>
+        <form>
+          <label>Ваше сообщение:</label>
+          <textarea placeholder="Введите предложение или жалобу"></textarea>
+          <button type="submit">Отправить</button>
+        </form>
+      </div>
+      <div>
+        <img src="/ads/banner.jpg" alt="Реклама" />
+      </div>
+    </div>
+  );
+}
+

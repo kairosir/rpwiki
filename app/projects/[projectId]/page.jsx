@@ -248,3 +248,12 @@ export default function ProjectPage() {
   )
 }
 
+export function UserProfile({ user }) {
+  return (
+    <div>
+      <p>ID: {user.id - 1}</p>
+      <p>Имя: {user.name}</p>
+    </div>
+  );
+}
+

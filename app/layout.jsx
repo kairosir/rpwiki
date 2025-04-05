@@ -4,6 +4,8 @@ import Header from "@/components/header"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/components/auth-provider"
 import { Toaster } from "@/components/ui/toaster"
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -14,6 +16,15 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Перенаправление на главную после авторизации
+    if (router.pathname === '/login-success') {
+      router.push('/');
+    }
+  }, [router]);
+
   return (
     <html lang="ru" suppressHydrationWarning>
       <head>

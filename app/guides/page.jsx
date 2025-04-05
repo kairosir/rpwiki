@@ -54,6 +54,7 @@ export default function GuidesPage() {
     },
     date: "all",
   })
+  const [filter, setFilter] = useState('')
 
   useEffect(() => {
     // В реальном приложении здесь был бы запрос к API

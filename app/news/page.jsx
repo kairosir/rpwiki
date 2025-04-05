@@ -19,6 +19,7 @@ export default function NewsPage() {
   const [activeTab, setActiveTab] = useState("all")
   const [searchQuery, setSearchQuery] = useState("")
   const [viewMode, setViewMode] = useState("grid") // grid или list
+  const [filter, setFilter] = useState("")
 
   useEffect(() => {
     // В реальном приложении здесь был бы запрос к API
@@ -143,7 +144,8 @@ export default function NewsPage() {
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.project.toLowerCase().includes(searchQuery.toLowerCase())
-    return matchesProject && matchesSearch
+    const matchesFilter = filter === "" || item.category.toLowerCase().includes(filter.toLowerCase())
+    return matchesProject && matchesSearch && matchesFilter
   })
 
   return (
@@ -160,6 +162,18 @@ export default function NewsPage() {
             className="pl-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <div className="w-full md:w-64 relative">
+          <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Фильтр по категории..."
+            className="pl-10"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
           />
         </div>
       </div>
@@ -279,6 +293,7 @@ export default function NewsPage() {
             onClick={() => {
               setSearchQuery("")
               setActiveTab("all")
+              setFilter("")
             }}
           >
             Сбросить фильтры
