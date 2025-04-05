@@ -144,7 +144,7 @@ export default function MonitoringPage() {
                 },
                 {
                   id: 6,
-                  name: "Majestic RP - Sand Diego",
+                  name: "Majestic RP - San Diego",
                   project: "Majestic RP",
                   projectId: "majestic-rp",
                   // ip: "moon.eclipse-rp.com:22005",
@@ -189,8 +189,8 @@ export default function MonitoringPage() {
                 {
                   id: 4,
                   name: "Majestic RP - Washington",
-                  project: "Diamond RP",
-                  projectId: "diamond-rp",
+                  project: "Majestic RP",
+                  projectId: "majestic-rp",
                   // ip: "sapphire.diamond-rp.com:7777",
                   online: 780,
                   maxPlayers: 1000,
@@ -200,8 +200,8 @@ export default function MonitoringPage() {
                 {
                   id: 5,
                   name: "Majestic RP - Dallas",
-                  project: "Advance RP",
-                  projectId: "advance-rp",
+                  project: "Majestic RP",
+                  projectId: "majestic-rp",
                   // ip: "phoenix.advance-rp.com:7777",
                   online: 450,
                   maxPlayers: 600,
@@ -211,8 +211,8 @@ export default function MonitoringPage() {
                 {
                   id: 6,
                   name: "Majestic RP - Boston",
-                  project: "Eclipse RP",
-                  projectId: "eclipse-rp",
+                  project: "Majestic RP",
+                  projectId: "majestic RP",
                   // ip: "moon.eclipse-rp.com:22005",
                   online: 420,
                   maxPlayers: 500,
@@ -222,8 +222,8 @@ export default function MonitoringPage() {
                 {
                   id: 6,
                   name: "Majestic RP - Houston",
-                  project: "Eclipse RP",
-                  projectId: "eclipse-rp",
+                  project: "Majestic RP",
+                  projectId: "majestic-rp",
                   // ip: "moon.eclipse-rp.com:22005",
                   online: 420,
                   maxPlayers: 500,
@@ -233,8 +233,8 @@ export default function MonitoringPage() {
                 {
                   id: 6,
                   name: "Majestic RP - Seattle",
-                  project: "Eclipse RP",
-                  projectId: "eclipse-rp",
+                  project: "Majestic RP",
+                  projectId: "majestic-rp",
                   // ip: "moon.eclipse-rp.com:22005",
                   online: 420,
                   maxPlayers: 500,
