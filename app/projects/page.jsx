@@ -4,27 +4,13 @@ import { AdBanner } from "@/components/ad-banner"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Filter, Grid3X3, List } from "lucide-react"
-import { useState, useEffect } from "react"
 
-export default function MonitoringPage() {
-  const [servers, setServers] = useState([]);
-  const [totalPlayers, setTotalPlayers] = useState(0);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('/api/servers'); // Подключение к API
-      const data = await response.json();
-      setServers(data.servers);
-      setTotalPlayers(data.totalPlayers);
-    }
-    fetchData();
-  }, []);
-
+export default function ProjectsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Мониторинг</h1>
+          <h1 className="text-3xl font-bold mb-2">Проекты</h1>
           <p className="text-muted-foreground">
             Выберите RP проект, чтобы получить доступ к полной информации, гайдам и ресурсам
           </p>
@@ -82,13 +68,6 @@ export default function MonitoringPage() {
           Если вы не нашли интересующий вас проект или заметили неточность в информации, пожалуйста, сообщите нам через
           форму обратной связи.
         </p>
-      </div>
-
-      <div className="mt-12 bg-card rounded-lg p-6 shadow-md">
-        <h2 className="text-xl font-bold mb-4">Мониторинг серверов</h2>
-        <p className="text-muted-foreground mb-4">Серверов: {servers.length}</p>
-        <p className="text-muted-foreground mb-4">Игроков онлайн: {totalPlayers}</p>
-        {/* Отображение серверов */}
       </div>
     </div>
   )

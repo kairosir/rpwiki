@@ -28,8 +28,8 @@ export default function ProjectLayout({ children, params }) {
               Главная
             </Link>
             <ChevronRight className="h-4 w-4 mx-1 text-muted-foreground" />
-            <Link href="/monitoring" className="text-muted-foreground hover:text-foreground">
-              Мониторинг
+            <Link href="/projects" className="text-muted-foreground hover:text-foreground">
+              Проекты
             </Link>
             <ChevronRight className="h-4 w-4 mx-1 text-muted-foreground" />
             <span>{projectName}</span>
