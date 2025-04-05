@@ -9,10 +9,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useAuth } from "@/context/AuthContext" // Импортируем useAuth для доступа к контексту
 
 export default function LoginPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { login } = useAuth() // Доступ к функции login из контекста
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -22,7 +24,6 @@ export default function LoginPage() {
   const [successMessage, setSuccessMessage] = useState("")
 
   useEffect(() => {
-    // Проверяем, пришел ли пользователь после успешной регистрации
     const registered = searchParams.get("registered")
     if (registered === "true") {
       setSuccessMessage("Регистрация успешна! Теперь вы можете войти в систему.")
@@ -35,7 +36,6 @@ export default function LoginPage() {
     setError("")
 
     try {
-      // Отправка данных на API входа
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -53,9 +53,11 @@ export default function LoginPage() {
         throw new Error(data.error || "Неверный email или пароль")
       }
 
-      // Перенаправление на главную страницу
+      // Логиним пользователя с помощью контекста
+      login(data.user)
+
       router.push("/")
-      router.refresh() // Обновляем страницу для применения изменений состояния аутентификации
+      router.refresh() // Обновляем страницу, чтобы применить изменения состояния аутентификации
     } catch (err) {
       setError(err.message || "Произошла ошибка при входе")
     } finally {
@@ -137,4 +139,3 @@ export default function LoginPage() {
     </div>
   )
 }
-
