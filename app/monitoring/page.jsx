@@ -626,77 +626,69 @@ export default function MonitoringPage() {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
           </div>
         ) : (
-          <div className="space-y-4">
-            {filteredServers.map((server) => (
-              <Card key={server.id} className="overflow-hidden">
-                <div className="flex flex-col md:flex-row">
-                  <div className="p-4 md:p-6 flex-grow">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-bold">{server.name}</h3>
-                        <Badge
-                          variant={server.status === "online" ? "success" : "destructive"}
-                          className={
-                            server.status === "online" ? "bg-green-500/20 text-green-700 hover:bg-green-500/30" : ""
-                          }
-                        >
-                          {server.status === "online" ? "Онлайн" : "Оффлайн"}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Clock className="h-4 w-4" />
-                        <span>Обновлено: {formatLastUpdated(server.lastUpdated)}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col md:flex-row justify-between gap-4 mb-4">
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">Проект:</p>
-                        <Link href={`/projects/${server.projectId}`} className="text-primary hover:underline">
-                          {server.project}
-                        </Link>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">IP адрес:</p>
-                        <code className="bg-muted px-2 py-1 rounded text-sm">{server.ip}</code>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">Игроки:</p>
-                        <div className="flex items-center gap-2">
-                          <Activity className="h-4 w-4 text-primary" />
-                          <span className="font-medium">
-                            {server.online} / {server.maxPlayers}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="w-full bg-muted rounded-full h-2.5 mb-2">
-                      <div
-                        className="bg-primary h-2.5 rounded-full"
-                        style={{ width: `${(server.online / server.maxPlayers) * 100}%` }}
-                      ></div>
-                    </div>
-                    <p className="text-xs text-muted-foreground text-right">
-                      Заполненность: {Math.round((server.online / server.maxPlayers) * 100)}%
-                    </p>
-                  </div>
-
-                  <div className="p-4 md:p-6 md:border-l flex flex-col justify-center items-center gap-4 bg-muted/30">
-                    <Button className="w-full" asChild>
-                      <Link href={`/servers/${server.id}`}>
-                        Подробнее
-                        <ArrowRight className="h-4 w-4 ml-2" />
-                      </Link>
-                    </Button>
-                    <Button variant="outline" className="w-full">
-                      Подключиться
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            ))}
-
+jsx
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  {filteredServers.map((server) => (
+    <Card key={server.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <h3 className="text-lg font-bold">{server.name}</h3>
+            <Badge
+              variant={server.status === "online" ? "success" : "destructive"}
+              className={
+                server.status === "online" ? "bg-green-500/20 text-green-700 hover:bg-green-500/30" : ""
+              }
+            >
+              {server.status === "online" ? "Онлайн" : "Оффлайн"}
+            </Badge>
+          </div>
+          <div className="text-sm text-muted-foreground flex items-center gap-1">
+            <Clock className="h-4 w-4" />
+            {formatLastUpdated(server.lastUpdated)}
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <p className="text-sm text-muted-foreground mb-1">Проект:</p>
+            <Link href={`/projects/${server.projectId}`} className="text-primary hover:underline">
+              {server.project}
+            </Link>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground mb-1">IP адрес:</p>
+            <code className="bg-muted px-2 py-1 rounded text-sm">{server.ip}</code>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">Игроки:</span>
+            <span className="font-medium">
+              {server.online} / {server.maxPlayers}
+            </span>
+          </div>
+          <div className="w-full bg-muted rounded-full h-2">
+            <div
+              className="bg-primary h-2 rounded-full transition-all"
+              style={{ width: `${(server.online / server.maxPlayers) * 100}%` }}
+            />
+          </div>
+        </div>
+        <div className="flex gap-2 mt-4">
+          <Button variant="outline" className="w-full" asChild>
+            <Link href={`/servers/${server.id}`}>
+              Подробнее
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Link>
+          </Button>
+          <Button className="w-full">
+            Подключиться
+          </Button>
+        </div>
+      </div>
+    </Card>
+  ))}
+</div>
             {filteredServers.length === 0 && (
               <div className="text-center py-12 bg-muted/30 rounded-lg">
                 <Server className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
