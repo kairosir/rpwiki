@@ -80,3 +80,11 @@ export interface Database {
   }
 }
 
+export interface Message {
+  id: number;
+  sender_id: string;
+  receiver_id: string;
+  content: string;
+  created_at: string;
+}
+

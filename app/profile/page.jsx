@@ -22,7 +22,8 @@ import {
   Trash,
   Image,
 } from "lucide-react"
-import Messages from "./messages";
+import Messages from "./messages"
+import { supabase } from "@/lib/supabase"
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -31,8 +32,10 @@ export default function ProfilePage() {
   const [avatarUrl, setAvatarUrl] = useState(null)
   const [avatarFile, setAvatarFile] = useState(null)
   const [showAvatarEditor, setShowAvatarEditor] = useState(false)
+  const [userId, setUserId] = useState(null)
+  const [messages, setMessages] = useState([])
   const fileInputRef = useRef(null)
-  const supabase = createClientComponentClient()
+  const supabaseClient = createClientComponentClient()
 
   // Демо-данные пользователя
   const [userData, setUserData] = useState({
@@ -54,10 +57,10 @@ export default function ProfilePage() {
       try {
         const {
           data: { session },
-        } = await supabase.auth.getSession()
+        } = await supabaseClient.auth.getSession()
 
         if (session) {
-          const { data, error } = await supabase.from("users").select("*").eq("id", session.user.id).single()
+          const { data, error } = await supabaseClient.from("users").select("*").eq("id", session.user.id).single()
 
           if (data) {
             setUserData({
@@ -73,6 +76,7 @@ export default function ProfilePage() {
               lastLogin: data.last_login || data.created_at,
             })
             setAvatarUrl(data.avatar_url)
+            setUserId(session.user.id)
           }
         }
       } catch (error) {
@@ -83,7 +87,7 @@ export default function ProfilePage() {
     }
 
     fetchUserData()
-  }, [supabase])
+  }, [supabaseClient])
 
   useEffect(() => {
     // Пример изменения ID пользователя
@@ -92,6 +96,23 @@ export default function ProfilePage() {
       id: parseInt(prev.id, 10) - 1, // ID начинается с 0
     }))
   }, [])
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const { data, error } = await supabase
+        .from("messages")
+        .select("*")
+        .eq("receiver_id", userId)
+
+      if (!error) {
+        setMessages(data)
+      }
+    }
+
+    if (userId) {
+      fetchMessages()
+    }
+  }, [userId])
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing)
@@ -103,10 +124,10 @@ export default function ProfilePage() {
     try {
       const {
         data: { session },
-      } = await supabase.auth.getSession()
+      } = await supabaseClient.auth.getSession()
 
       if (session) {
-        const { error } = await supabase
+        const { error } = await supabaseClient
           .from("users")
           .update({
             username: userData.username,
@@ -177,7 +198,7 @@ export default function ProfilePage() {
     try {
       const {
         data: { session },
-      } = await supabase.auth.getSession()
+      } = await supabaseClient.auth.getSession()
 
       if (!session) {
         throw new Error("Не авторизован")
@@ -188,17 +209,17 @@ export default function ProfilePage() {
       const fileName = `${session.user.id}-${Math.random().toString(36).substring(2)}.${fileExt}`
       const filePath = `avatars/${fileName}`
 
-      const { error: uploadError } = await supabase.storage.from("avatars").upload(filePath, avatarFile)
+      const { error: uploadError } = await supabaseClient.storage.from("avatars").upload(filePath, avatarFile)
 
       if (uploadError) {
         throw uploadError
       }
 
       // Получаем публичный URL
-      const { data: urlData } = supabase.storage.from("avatars").getPublicUrl(filePath)
+      const { data: urlData } = supabaseClient.storage.from("avatars").getPublicUrl(filePath)
 
       // Обновляем профиль пользователя
-      const { error: updateError } = await supabase
+      const { error: updateError } = await supabaseClient
         .from("users")
         .update({
           avatar_url: urlData.publicUrl,
@@ -245,14 +266,14 @@ export default function ProfilePage() {
     try {
       const {
         data: { session },
-      } = await supabase.auth.getSession()
+      } = await supabaseClient.auth.getSession()
 
       if (!session) {
         throw new Error("Не авторизован")
       }
 
       // Обновляем профиль пользователя, устанавливая null для аватара
-      const { error: updateError } = await supabase
+      const { error: updateError } = await supabaseClient
         .from("users")
         .update({
           avatar_url: null,
@@ -364,6 +385,7 @@ export default function ProfilePage() {
               <p className="text-sm text-muted-foreground mb-4">
                 Зарегистрирован: {new Date(userData.registeredAt).toLocaleDateString()}
               </p>
+              <p className="text-sm text-muted-foreground">ID пользователя: {userId}</p>
               <Button className="w-full" onClick={handleEditToggle}>
                 {isEditing ? "Отменить редактирование" : "Редактировать профиль"}
               </Button>
@@ -542,6 +564,25 @@ export default function ProfilePage() {
                   </div>
                 </div>
               )}
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Личные сообщения</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {messages.map((message) => (
+                  <div key={message.id} className="bg-muted p-4 rounded-md">
+                    <p className="text-sm text-muted-foreground">От: {message.sender_id}</p>
+                    <p className="text-sm mt-2">{message.content}</p>
+                  </div>
+                ))}
+
+                {messages.length === 0 && (
+                  <p className="text-sm text-muted-foreground">У вас пока нет сообщений.</p>
+                )}
+              </div>
             </CardContent>
           </Card>
           <Messages />
