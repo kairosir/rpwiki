@@ -22,7 +22,7 @@ import {
   Trash,
   Image,
 } from "lucide-react"
-import MessagesPage from "@/app/messages/page"; // Убедитесь, что путь к компоненту корректен
+import Messages from "../components/messages";
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -544,7 +544,7 @@ export default function ProfilePage() {
               )}
             </CardContent>
           </Card>
-          <MessagesPage />
+          <Messages />
         </div>
       </div>
     </div>
