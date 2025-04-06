@@ -5,11 +5,13 @@ import { ServerCounter } from "@/components/server-counter"
 import { AdBanner } from "@/components/ad-banner"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ServersByGameType } from "@/components/servers-by-game-type"
+import applyFilters from "@/utils/applyFilters"
 
 export default function ServersPage() {
   const [activeTab, setActiveTab] = useState("all")
   const [servers, setServers] = useState([])
   const [loading, setLoading] = useState(true)
+  const [searchQuery, setSearchQuery] = useState("")
 
   useEffect(() => {
     // В реальном приложении здесь был бы запрос к API
@@ -179,7 +181,7 @@ export default function ServersPage() {
     }, 500)
   }, [])
 
-  const filteredServers = activeTab === "all" ? servers : servers.filter((server) => server.gameType === activeTab)
+  const filteredServers = applyFilters(servers, { gameType: activeTab === "all" ? "" : activeTab, searchQuery })
 
   const getServersByGameType = (gameType) => {
     return servers.filter((server) => server.gameType === gameType)
