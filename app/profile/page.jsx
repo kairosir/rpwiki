@@ -21,6 +21,7 @@ import {
   Server,
   Trash,
   Image,
+  MessageSquare,
 } from "lucide-react"
 import Messages from "./messages"
 import { supabase } from "@/lib/supabase"
@@ -386,7 +387,7 @@ export default function ProfilePage() {
                 Зарегистрирован: {new Date(userData.registeredAt).toLocaleDateString()}
               </p>
               {userId !== null && (
-                <p className="text-sm text-muted-foreground">ID пользователя: {userId}</p>
+                <p className="text-sm text-muted-foreground">ID пользователя: ID {parseInt(userId, 10)}</p>
               )}
               <Button className="w-full" onClick={handleEditToggle}>
                 {isEditing ? "Отменить редактирование" : "Редактировать профиль"}
@@ -420,6 +421,13 @@ export default function ProfilePage() {
                 >
                   <Clock className="h-4 w-4 text-primary" />
                   <span>Активность</span>
+                </Link>
+                <Link
+                  href="/profile/messages"
+                  className="flex items-center gap-2 p-2 rounded-md hover:bg-accent transition-colors"
+                >
+                  <MessageSquare className="h-4 w-4 text-primary" />
+                  <span>Сообщения</span>
                 </Link>
               </nav>
             </CardContent>
