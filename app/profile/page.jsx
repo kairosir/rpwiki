@@ -23,7 +23,7 @@ import {
   Image,
 } from "lucide-react"
 import { supabase } from "@/lib/supabase"
-import MessagesPage from "../messages/page"
+import Messages from "./messages"
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -419,7 +419,7 @@ export default function ProfilePage() {
 
         {/* Основной контент */}
         <div className="lg:col-span-3">
-          <MessagesPage />
+          <Messages />
         </div>
       </div>
     </div>
