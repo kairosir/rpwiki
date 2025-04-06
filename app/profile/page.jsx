@@ -21,9 +21,7 @@ import {
   Server,
   Trash,
   Image,
-  MessageSquare,
 } from "lucide-react"
-import Messages from "./messages"
 import { supabase } from "@/lib/supabase"
 
 export default function ProfilePage() {
@@ -34,7 +32,6 @@ export default function ProfilePage() {
   const [avatarFile, setAvatarFile] = useState(null)
   const [showAvatarEditor, setShowAvatarEditor] = useState(false)
   const [userId, setUserId] = useState(null)
-  const [messages, setMessages] = useState([])
   const fileInputRef = useRef(null)
   const supabaseClient = createClientComponentClient()
 
@@ -97,23 +94,6 @@ export default function ProfilePage() {
       id: parseInt(prev.id, 10) - 1, // ID начинается с 0
     }))
   }, [])
-
-  useEffect(() => {
-    const fetchMessages = async () => {
-      const { data, error } = await supabase
-        .from("messages")
-        .select("*")
-        .eq("receiver_id", userId)
-
-      if (!error) {
-        setMessages(data)
-      }
-    }
-
-    if (userId) {
-      fetchMessages()
-    }
-  }, [userId])
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing)
@@ -428,7 +408,7 @@ export default function ProfilePage() {
                   href="/profile/messages"
                   className="flex items-center gap-2 p-2 rounded-md hover:bg-accent transition-colors"
                 >
-                  <MessageSquare className="h-4 w-4 text-primary" />
+                  <Clock className="h-4 w-4 text-primary" />
                   <span>Сообщения</span>
                 </Link>
               </nav>
@@ -578,26 +558,6 @@ export default function ProfilePage() {
               )}
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Личные сообщения</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {messages.map((message) => (
-                  <div key={message.id} className="bg-muted p-4 rounded-md">
-                    <p className="text-sm text-muted-foreground">От: {message.sender_id}</p>
-                    <p className="text-sm mt-2">{message.content}</p>
-                  </div>
-                ))}
-
-                {messages.length === 0 && (
-                  <p className="text-sm text-muted-foreground">У вас пока нет сообщений.</p>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-          <Messages />
         </div>
       </div>
     </div>
