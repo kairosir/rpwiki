@@ -406,7 +406,7 @@ export default function ProfilePage() {
                   <span>Активность</span>
                 </Link>
                 <Link
-                  href="/profile/messages"
+                  href="/messages/page.jsx"
                   className="flex items-center gap-2 p-2 rounded-md hover:bg-accent transition-colors"
                 >
                   <Clock className="h-4 w-4 text-primary" />
