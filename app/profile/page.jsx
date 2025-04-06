@@ -22,7 +22,6 @@ import {
   Trash,
   Image,
 } from "lucide-react"
-import Messages from "@/components/Messages"
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -544,7 +543,7 @@ export default function ProfilePage() {
               )}
             </CardContent>
           </Card>
-          <Messages userId={userData.id} />
+          {/* <Messages userId={userData.id} /> */} {/* Закомментировано, так как модуль отсутствует */}
         </div>
       </div>
     </div>
