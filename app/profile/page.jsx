@@ -385,7 +385,9 @@ export default function ProfilePage() {
               <p className="text-sm text-muted-foreground mb-4">
                 Зарегистрирован: {new Date(userData.registeredAt).toLocaleDateString()}
               </p>
-              <p className="text-sm text-muted-foreground">ID пользователя: {userId}</p>
+              {userId !== null && (
+                <p className="text-sm text-muted-foreground">ID пользователя: {userId}</p>
+              )}
               <Button className="w-full" onClick={handleEditToggle}>
                 {isEditing ? "Отменить редактирование" : "Редактировать профиль"}
               </Button>
