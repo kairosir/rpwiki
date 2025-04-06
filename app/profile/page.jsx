@@ -22,7 +22,7 @@ import {
   Trash,
   Image,
 } from "lucide-react"
-import { MessagesPage } from "@/components/messages";
+import MessagesPage from "@/app/messages/page"; // Убедитесь, что путь к компоненту корректен
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)

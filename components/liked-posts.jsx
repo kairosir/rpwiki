@@ -21,39 +21,8 @@ const contentTypeIcons = {
   // Добавьте другие типы по мере необходимости
 }
 
-// Демо-данные для отображения, когда таблица votes не существует
-const demoLikedPosts = [
-  {
-    id: "demo-1",
-    contentId: "guide-1",
-    contentType: "guide",
-    title: "Что такое RP и как начать?",
-    description: "Подробное руководство для новичков в мире RP",
-    image: "/placeholder.svg?height=100&width=200",
-    url: "/guides/what-is-rp",
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: "demo-2",
-    contentId: "vehicle-1",
-    contentType: "vehicle",
-    title: "Adder - Суперкар",
-    description: "Один из самых быстрых автомобилей в игре",
-    image: "/placeholder.svg?height=100&width=200",
-    url: "/projects/majestic-rp/vehicles/1",
-    createdAt: new Date(Date.now() - 86400000).toISOString(), // вчера
-  },
-  {
-    id: "demo-3",
-    contentId: "business-1",
-    contentType: "business",
-    title: "Автомойка - Малый бизнес",
-    description: "Информация о бизнесе автомойки",
-    image: "/placeholder.svg?height=100&width=200",
-    url: "/projects/majestic-rp/biz/1",
-    createdAt: new Date(Date.now() - 172800000).toISOString(), // 2 дня назад
-  },
-]
+// Удаляю демо-данные и заменяю их пустым массивом
+const demoLikedPosts = [];
 
 export function LikedPosts() {
   const [activeTab, setActiveTab] = useState("all")
