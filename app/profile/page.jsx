@@ -387,11 +387,13 @@ export default function ProfilePage() {
                 Зарегистрирован: {new Date(userData.registeredAt).toLocaleDateString()}
               </p>
               {userId !== null && (
-                <p className="text-sm text-muted-foreground">ID пользователя: ID {parseInt(userId, 10)}</p>
+                <p className="text-sm text-muted-foreground mb-4">ID пользователя: ID {parseInt(userId, 10)}</p>
               )}
-              <Button className="w-full" onClick={handleEditToggle}>
-                {isEditing ? "Отменить редактирование" : "Редактировать профиль"}
-              </Button>
+              <div className="mt-4">
+                <Button className="w-full" onClick={handleEditToggle}>
+                  {isEditing ? "Отменить редактирование" : "Редактировать профиль"}
+                </Button>
+              </div>
             </CardContent>
           </Card>
 
