@@ -18,11 +18,11 @@ import {
   Calendar,
   GamepadIcon as GameController,
   Clock,
-  Hash,
   Server,
   Trash,
   Image,
 } from "lucide-react"
+import Messages from "@/components/Messages"
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -84,6 +84,14 @@ export default function ProfilePage() {
 
     fetchUserData()
   }, [supabase])
+
+  useEffect(() => {
+    // Пример изменения ID пользователя
+    setUserData((prev) => ({
+      ...prev,
+      id: parseInt(prev.id, 10) - 1, // ID начинается с 0
+    }))
+  }, [])
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing)
@@ -353,10 +361,6 @@ export default function ProfilePage() {
                 </div>
               )}
               <h2 className="text-xl font-bold">{userData.username}</h2>
-              <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground mb-2">
-                <Hash className="h-4 w-4" />
-                <span>ID: {userData.id}</span>
-              </div>
               <p className="text-sm text-muted-foreground mb-4">
                 Зарегистрирован: {new Date(userData.registeredAt).toLocaleDateString()}
               </p>
@@ -525,14 +529,6 @@ export default function ProfilePage() {
                         <p>{userData.discord}</p>
                       </div>
                     </div>
-
-                    <div className="flex items-start gap-3">
-                      <Hash className="h-5 w-5 text-primary mt-0.5" />
-                      <div>
-                        <h3 className="font-medium">ID пользователя</h3>
-                        <p>{userData.id}</p>
-                      </div>
-                    </div>
                   </div>
 
                   <div className="pt-4 border-t">
@@ -548,6 +544,7 @@ export default function ProfilePage() {
               )}
             </CardContent>
           </Card>
+          <Messages userId={userData.id} />
         </div>
       </div>
     </div>

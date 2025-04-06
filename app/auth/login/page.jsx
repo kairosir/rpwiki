@@ -30,12 +30,11 @@ export default function LoginPage() {
   }, [searchParams])
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
     try {
-      // Отправка данных на API входа
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -45,23 +44,23 @@ export default function LoginPage() {
           email,
           password,
         }),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Неверный email или пароль")
+        throw new Error(data.error || "Неверный email или пароль");
       }
 
-      // Перенаправление на главную страницу
-      router.push("/")
-      router.refresh() // Обновляем страницу для применения изменений состояния аутентификации
+      // Перенаправление на главную страницу и обновление
+      router.push("/");
+      router.refresh();
     } catch (err) {
-      setError(err.message || "Произошла ошибка при входе")
+      setError(err.message || "Произошла ошибка при входе");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-md">
