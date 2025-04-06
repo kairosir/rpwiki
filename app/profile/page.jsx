@@ -23,7 +23,7 @@ import {
   Image,
 } from "lucide-react"
 import { supabase } from "@/lib/supabase"
-import MessagesPage from "../messages/page"
+import MessagesPage from "./messages/page"
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -406,7 +406,7 @@ export default function ProfilePage() {
                   <span>Активность</span>
                 </Link>
                 <Link
-                  href="/messages/page.jsx"
+                  href="/profile/messages"
                   className="flex items-center gap-2 p-2 rounded-md hover:bg-accent transition-colors"
                 >
                   <Clock className="h-4 w-4 text-primary" />
