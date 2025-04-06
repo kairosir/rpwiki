@@ -154,370 +154,49 @@ export default function MonitoringPage() {
                   lastUpdated: "2023-03-28T15:30:00Z",
                 },
                 {
-                  id: 1,
-                  name: "Majestic RP - Los Angeles",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "play.majestic-rp.com:22005",
-                  online: 450,
-                  maxPlayers: 500,
+                  id: 101,
+                  name: "Amazing RP - Moscow",
+                  project: "Amazing RP",
+                  projectId: "amazing-rp",
+                  ip: "amazing-rp.com:7777",
+                  online: 1200,
+                  maxPlayers: 1500,
                   status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
+                  lastUpdated: "2023-10-01T12:00:00Z",
                 },
                 {
-                  id: 2,
-                  name: "Majestic RP - Miami",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "play.majestic-rp.com:22006",
-                  online: 380,
-                  maxPlayers: 500,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 3,
-                  name: "Majestic RP - Las Vegas",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "emerald.diamond-rp.com:7777",
-                  online: 850,
+                  id: 102,
+                  name: "GTA5RP - Downtown",
+                  project: "GTA5RP",
+                  projectId: "gta5rp",
+                  ip: "gta5rp.com:7777",
+                  online: 800,
                   maxPlayers: 1000,
                   status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
+                  lastUpdated: "2023-10-01T12:00:00Z",
                 },
                 {
-                  id: 4,
-                  name: "Majestic RP - Washington",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "sapphire.diamond-rp.com:7777",
-                  online: 780,
-                  maxPlayers: 1000,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 5,
-                  name: "Majestic RP - Dallas",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "phoenix.advance-rp.com:7777",
-                  online: 450,
-                  maxPlayers: 600,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 6,
-                  name: "Majestic RP - Boston",
-                  project: "Majestic RP",
-                  projectId: "majestic RP",
-                  // ip: "moon.eclipse-rp.com:22005",
-                  online: 420,
-                  maxPlayers: 500,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 6,
-                  name: "Majestic RP - Houston",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "moon.eclipse-rp.com:22005",
-                  online: 420,
-                  maxPlayers: 500,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 6,
-                  name: "Majestic RP - Seattle",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "moon.eclipse-rp.com:22005",
-                  online: 420,
-                  maxPlayers: 500,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 1,
+                  id: 103,
                   name: "Arizona RP - Phoenix",
                   project: "Arizona RP",
                   projectId: "arizona-rp",
-                  ip: "185.169.134.3:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
+                  ip: "arizona-rp.com:7777",
+                  online: 950,
+                  maxPlayers: 1200,
+                  status: "online",
+                  lastUpdated: "2023-10-01T12:00:00Z",
                 },
                 {
-                  id: 2,
-                  name: "Arizona RP - Tucson",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.4:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
+                  id: 104,
+                  name: "Majestic RP - Los Angeles",
+                  project: "Majestic RP",
+                  projectId: "majestic-rp",
+                  ip: "majestic-rp.com:7777",
+                  online: 1100,
+                  maxPlayers: 1300,
+                  status: "online",
+                  lastUpdated: "2023-10-01T12:00:00Z",
                 },
-                {
-                  id: 3,
-                  name: "Arizona RP - Scottdale",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.43:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 4,
-                  name: "Arizona RP - Chandler",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.44:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 5,
-                  name: "Arizona RP - Brainburg",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.45:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 6,
-                  name: "Arizona RP - Saint Rose",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.5:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 7,
-                  name: "Arizona RP - Mesa",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.59:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 8,
-                  name: "Arizona RP - Red Rock",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.61:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 9,
-                  name: "Arizona RP - Yuma",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.107:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 10,
-                  name: "Arizona RP - Surprise",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.109:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 11,
-                  name: "Arizona RP - Prescott",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.166:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 12,
-                  name: "Arizona RP - Glendale",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.171:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 13,
-                  name: "Arizona RP - Kingman",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.172:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 14,
-                  name: "Arizona RP - Winslow",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.173:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 15,
-                  name: "Arizona RP - Payson",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "185.169.134.174:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 16,
-                  name: "Arizona RP - Gilbert",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "80.66.82.191:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 17,
-                  name: "Arizona RP - Show-Low",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "80.66.82.190:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 18,
-                  name: "Arizona RP - Casa-Grande",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "80.66.82.188:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 19,
-                  name: "Arizona RP - Page",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "80.66.82.168:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 20,
-                  name: "Arizona RP - Sun-City",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "80.66.82.159:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 21,
-                  name: "Arizona RP - Queen Creek",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "80.66.82.200:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 22,
-                  name: "Arizona RP - Sedona",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "80.66.82.144:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 23,
-                  name: "Arizona RP - Holiday",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "80.66.82.132:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 24,
-                  name: "Arizona RP - Wednesday",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "80.66.82.128:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                },
-                {
-                  id: 25,
-                  name: "Arizona RP - Yava",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "80.66.82.113:7777",
-                  online: null,
-                  maxPlayers: null,
-                  status: "unknown",
-                  lastUpdated: "2025-04-05T20:55:26Z"
-                }
-
-                
               ]
 
         setProjects(projectsList)
@@ -626,11 +305,11 @@ export default function MonitoringPage() {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredServers.map((server) => (
               <Card key={server.id} className="overflow-hidden">
-                <div className="flex flex-col md:flex-row">
-                  <div className="p-4 md:p-6 flex-grow">
+                <div className="flex flex-col">
+                  <div className="p-4 flex-grow">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <h3 className="text-lg font-bold">{server.name}</h3>
@@ -643,54 +322,16 @@ export default function MonitoringPage() {
                           {server.status === "online" ? "Онлайн" : "Оффлайн"}
                         </Badge>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Clock className="h-4 w-4" />
-                        <span>Обновлено: {formatLastUpdated(server.lastUpdated)}</span>
-                      </div>
                     </div>
-
-                    <div className="flex flex-col md:flex-row justify-between gap-4 mb-4">
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">Проект:</p>
-                        <Link href={`/projects/${server.projectId}`} className="text-primary hover:underline">
-                          {server.project}
-                        </Link>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">IP адрес:</p>
-                        <code className="bg-muted px-2 py-1 rounded text-sm">{server.ip}</code>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">Игроки:</p>
-                        <div className="flex items-center gap-2">
-                          <Activity className="h-4 w-4 text-primary" />
-                          <span className="font-medium">
-                            {server.online} / {server.maxPlayers}
-                          </span>
-                        </div>
-                      </div>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-sm text-muted-foreground">Проект: {server.project}</p>
+                      <p className="text-sm text-muted-foreground">IP: {server.ip}</p>
+                      <p className="text-sm text-muted-foreground">Игроки: {server.online} / {server.maxPlayers}</p>
                     </div>
-
-                    <div className="w-full bg-muted rounded-full h-2.5 mb-2">
-                      <div
-                        className="bg-primary h-2.5 rounded-full"
-                        style={{ width: `${(server.online / server.maxPlayers) * 100}%` }}
-                      ></div>
-                    </div>
-                    <p className="text-xs text-muted-foreground text-right">
-                      Заполненность: {Math.round((server.online / server.maxPlayers) * 100)}%
-                    </p>
                   </div>
-
-                  <div className="p-4 md:p-6 md:border-l flex flex-col justify-center items-center gap-4 bg-muted/30">
+                  <div className="p-4 flex justify-between items-center bg-muted/30">
                     <Button className="w-full" asChild>
-                      <Link href={`/servers/${server.id}`}>
-                        Подробнее
-                        <ArrowRight className="h-4 w-4 ml-2" />
-                      </Link>
-                    </Button>
-                    <Button variant="outline" className="w-full">
-                      Подключиться
+                      <Link href={`/servers/${server.id}`}>Подробнее</Link>
                     </Button>
                   </div>
                 </div>
