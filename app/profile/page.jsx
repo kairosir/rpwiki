@@ -303,7 +303,7 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Личный кабинет</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Личный кабинет</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Боковая панель */}
@@ -313,63 +313,16 @@ export default function ProfilePage() {
               <CardTitle>Профиль</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
-              {showAvatarEditor ? (
-                <div className="space-y-4">
-                  <div className="relative w-32 h-32 mx-auto mb-4 border-2 border-dashed border-primary rounded-full overflow-hidden">
-                    {avatarUrl ? (
-                      <img src={avatarUrl || "/placeholder.svg"} alt="Аватар" className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="flex items-center justify-center h-full bg-muted">
-                        <Image className="h-8 w-8 text-muted-foreground" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex justify-center gap-2">
-                    <Button variant="outline" size="sm" onClick={handleAvatarCancel} disabled={isUploading}>
-                      Отмена
-                    </Button>
-                    <Button variant="destructive" size="sm" onClick={handleAvatarDelete} disabled={isUploading}>
-                      <Trash className="h-4 w-4 mr-1" />
-                      Удалить
-                    </Button>
-                    <Button size="sm" onClick={handleAvatarUpload} disabled={isUploading}>
-                      {isUploading ? (
-                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent mr-2"></span>
-                      ) : (
-                        <Save className="h-4 w-4 mr-1" />
-                      )}
-                      Сохранить
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <div className="relative w-32 h-32 mx-auto mb-4">
-                  <Avatar className="w-32 h-32">
-                    <AvatarImage src={userData.avatar} alt={userData.username} />
-                    <AvatarFallback>{userData.username.substring(0, 2).toUpperCase()}</AvatarFallback>
-                  </Avatar>
-                  <button
-                    className="absolute bottom-0 right-0 bg-primary text-primary-foreground rounded-full p-2"
-                    onClick={handleAvatarClick}
-                  >
-                    <Edit className="h-4 w-4" />
-                  </button>
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    className="hidden"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                  />
-                </div>
-              )}
+              <div className="relative w-32 h-32 mx-auto mb-4">
+                <Avatar className="w-32 h-32">
+                  <AvatarImage src={userData.avatar} alt={userData.username} />
+                  <AvatarFallback>{userData.username.substring(0, 2).toUpperCase()}</AvatarFallback>
+                </Avatar>
+              </div>
               <h2 className="text-xl font-bold">{userData.username}</h2>
               <p className="text-sm text-muted-foreground mb-4">
                 Зарегистрирован: {new Date(userData.registeredAt).toLocaleDateString()}
               </p>
-              {userId !== null && (
-                <p className="text-sm text-muted-foreground mb-4">ID пользователя: ID {parseInt(userId, 10)}</p>
-              )}
               <div className="mt-4">
                 <Button className="w-full" onClick={handleEditToggle}>
                   {isEditing ? "Отменить редактирование" : "Редактировать профиль"}
@@ -406,7 +359,7 @@ export default function ProfilePage() {
                   <span>Активность</span>
                 </Link>
                 <Link
-                  href="/profile/messages"
+                  href="/messages"
                   className="flex items-center gap-2 p-2 rounded-md hover:bg-accent transition-colors"
                 >
                   <Clock className="h-4 w-4 text-primary" />
@@ -419,20 +372,13 @@ export default function ProfilePage() {
 
         {/* Основной контент */}
         <div className="lg:col-span-3">
-          {/* Информация о пользователе */}
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Информация о пользователе</h2>
-            <p>Имя пользователя: {userData.username}</p>
-            <p>Возраст: {userData.age}</p>
-            <p>Проект: {userData.project}</p>
-            <p>Discord: {userData.discord}</p>
-            <p>Биография: {userData.bio}</p>
-          </div>
-          {/* Ссылка на раздел Сообщения */}
-          <div className="mt-6">
-            <Link href="/messages">
-              <a className="text-blue-500 hover:underline">Перейти в раздел Сообщения</a>
-            </Link>
+          <div className="space-y-4 bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold mb-4">Информация о пользователе</h2>
+            <p><strong>Имя пользователя:</strong> {userData.username}</p>
+            <p><strong>Возраст:</strong> {userData.age}</p>
+            <p><strong>Проект:</strong> {userData.project}</p>
+            <p><strong>Discord:</strong> {userData.discord}</p>
+            <p><strong>Биография:</strong> {userData.bio}</p>
           </div>
         </div>
       </div>
