@@ -428,6 +428,12 @@ export default function ProfilePage() {
             <p>Discord: {userData.discord}</p>
             <p>Биография: {userData.bio}</p>
           </div>
+          {/* Ссылка на раздел Сообщения */}
+          <div className="mt-6">
+            <Link href="/messages">
+              <a className="text-blue-500 hover:underline">Перейти в раздел Сообщения</a>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
