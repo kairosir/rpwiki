@@ -419,7 +419,15 @@ export default function ProfilePage() {
 
         {/* Основной контент */}
         <div className="lg:col-span-3">
-          <Messages />
+          {/* Информация о пользователе */}
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold">Информация о пользователе</h2>
+            <p>Имя пользователя: {userData.username}</p>
+            <p>Возраст: {userData.age}</p>
+            <p>Проект: {userData.project}</p>
+            <p>Discord: {userData.discord}</p>
+            <p>Биография: {userData.bio}</p>
+          </div>
         </div>
       </div>
     </div>
