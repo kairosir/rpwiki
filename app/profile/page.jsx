@@ -23,7 +23,7 @@ import {
   Image,
 } from "lucide-react"
 import { supabase } from "@/lib/supabase"
-import Messages from "./messages"
+import MessagesPage from "../messages/page"
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -303,7 +303,7 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">Личный кабинет</h1>
+      <h1 className="text-3xl font-bold mb-8">Личный кабинет</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Боковая панель */}
@@ -313,16 +313,63 @@ export default function ProfilePage() {
               <CardTitle>Профиль</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
-              <div className="relative w-32 h-32 mx-auto mb-4">
-                <Avatar className="w-32 h-32">
-                  <AvatarImage src={userData.avatar} alt={userData.username} />
-                  <AvatarFallback>{userData.username.substring(0, 2).toUpperCase()}</AvatarFallback>
-                </Avatar>
-              </div>
+              {showAvatarEditor ? (
+                <div className="space-y-4">
+                  <div className="relative w-32 h-32 mx-auto mb-4 border-2 border-dashed border-primary rounded-full overflow-hidden">
+                    {avatarUrl ? (
+                      <img src={avatarUrl || "/placeholder.svg"} alt="Аватар" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="flex items-center justify-center h-full bg-muted">
+                        <Image className="h-8 w-8 text-muted-foreground" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex justify-center gap-2">
+                    <Button variant="outline" size="sm" onClick={handleAvatarCancel} disabled={isUploading}>
+                      Отмена
+                    </Button>
+                    <Button variant="destructive" size="sm" onClick={handleAvatarDelete} disabled={isUploading}>
+                      <Trash className="h-4 w-4 mr-1" />
+                      Удалить
+                    </Button>
+                    <Button size="sm" onClick={handleAvatarUpload} disabled={isUploading}>
+                      {isUploading ? (
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent mr-2"></span>
+                      ) : (
+                        <Save className="h-4 w-4 mr-1" />
+                      )}
+                      Сохранить
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="relative w-32 h-32 mx-auto mb-4">
+                  <Avatar className="w-32 h-32">
+                    <AvatarImage src={userData.avatar} alt={userData.username} />
+                    <AvatarFallback>{userData.username.substring(0, 2).toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                  <button
+                    className="absolute bottom-0 right-0 bg-primary text-primary-foreground rounded-full p-2"
+                    onClick={handleAvatarClick}
+                  >
+                    <Edit className="h-4 w-4" />
+                  </button>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    className="hidden"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                  />
+                </div>
+              )}
               <h2 className="text-xl font-bold">{userData.username}</h2>
               <p className="text-sm text-muted-foreground mb-4">
                 Зарегистрирован: {new Date(userData.registeredAt).toLocaleDateString()}
               </p>
+              {userId !== null && (
+                <p className="text-sm text-muted-foreground mb-4">ID пользователя: ID {parseInt(userId, 10)}</p>
+              )}
               <div className="mt-4">
                 <Button className="w-full" onClick={handleEditToggle}>
                   {isEditing ? "Отменить редактирование" : "Редактировать профиль"}
@@ -359,7 +406,7 @@ export default function ProfilePage() {
                   <span>Активность</span>
                 </Link>
                 <Link
-                  href="/messages"
+                  href="/profile/messages"
                   className="flex items-center gap-2 p-2 rounded-md hover:bg-accent transition-colors"
                 >
                   <Clock className="h-4 w-4 text-primary" />
@@ -372,14 +419,150 @@ export default function ProfilePage() {
 
         {/* Основной контент */}
         <div className="lg:col-span-3">
-          <div className="space-y-4 bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">Информация о пользователе</h2>
-            <p><strong>Имя пользователя:</strong> {userData.username}</p>
-            <p><strong>Возраст:</strong> {userData.age}</p>
-            <p><strong>Проект:</strong> {userData.project}</p>
-            <p><strong>Discord:</strong> {userData.discord}</p>
-            <p><strong>Биография:</strong> {userData.bio}</p>
-          </div>
+        <Card>
+            <CardHeader>
+              <div className="flex justify-between items-center">
+                <CardTitle>Информация о пользователе</CardTitle>
+                <Button variant="outline" onClick={isEditing ? handleSave : handleEditToggle}>
+                  {isEditing ? (
+                    <>
+                      <Save className="h-4 w-4 mr-2" />
+                      Сохранить
+                    </>
+                  ) : (
+                    <>
+                      <Edit className="h-4 w-4 mr-2" />
+                      Редактировать
+                    </>
+                  )}
+                </Button>
+              </div>
+              <CardDescription>Основная информация о вашем профиле</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isEditing ? (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="username">Имя пользователя</Label>
+                      <Input id="username" name="username" value={userData.username} onChange={handleChange} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="age">Возраст</Label>
+                      <Input id="age" name="age" type="number" value={userData.age} onChange={handleChange} />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="project">Проект</Label>
+                      <Select
+                        name="project"
+                        value={userData.project}
+                        onValueChange={(value) => handleSelectChange("project", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Выберите проект" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Majestic RP">Majestic RP</SelectItem>
+                          <SelectItem value="Diamond RP">Diamond RP</SelectItem>
+                          <SelectItem value="Advance RP">Advance RP</SelectItem>
+                          <SelectItem value="Eclipse RP">Eclipse RP</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="playingOn">Играет на</Label>
+                      <Select
+                        name="playingOn"
+                        value={userData.playingOn}
+                        onValueChange={(value) => handleSelectChange("playingOn", value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Выберите сервер" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Сервер 1">Сервер 1</SelectItem>
+                          <SelectItem value="Сервер 2">Сервер 2</SelectItem>
+                          <SelectItem value="Сервер 3">Сервер 3</SelectItem>
+                          <SelectItem value="Сервер 4">Сервер 4</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="discord">Discord</Label>
+                    <Input id="discord" name="discord" value={userData.discord} onChange={handleChange} />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="bio">О себе</Label>
+                    <Textarea id="bio" name="bio" value={userData.bio} onChange={handleChange} rows={4} />
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="flex items-start gap-3">
+                      <User className="h-5 w-5 text-primary mt-0.5" />
+                      <div>
+                        <h3 className="font-medium">Имя</h3>
+                        <p>{userData.username}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <Calendar className="h-5 w-5 text-primary mt-0.5" />
+                      <div>
+                        <h3 className="font-medium">Возраст</h3>
+                        <p>{userData.age} лет</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <GameController className="h-5 w-5 text-primary mt-0.5" />
+                      <div>
+                        <h3 className="font-medium">Проект</h3>
+                        <p>{userData.project}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <Server className="h-5 w-5 text-primary mt-0.5" />
+                      <div>
+                        <h3 className="font-medium">Играет на</h3>
+                        <p>{userData.playingOn}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <User className="h-5 w-5 text-primary mt-0.5" />
+                      <div>
+                        <h3 className="font-medium">Discord</h3>
+                        <p>{userData.discord}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t">
+                    <h3 className="font-medium mb-2">О себе</h3>
+                    <p className="text-muted-foreground">{userData.bio}</p>
+                  </div>
+
+                  <div className="pt-4 border-t flex items-center justify-between text-sm text-muted-foreground">
+                    <div>Зарегистрирован: {new Date(userData.registeredAt).toLocaleDateString()}</div>
+                    <div>Последний вход: {new Date(userData.lastLogin).toLocaleDateString()}</div>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+
+
+          <MessagesPage />
         </div>
       </div>
     </div>
