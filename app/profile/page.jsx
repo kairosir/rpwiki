@@ -559,10 +559,6 @@ export default function ProfilePage() {
               )}
             </CardContent>
           </Card>
-
-
-
-          <MessagesPage />
         </div>
       </div>
     </div>
