@@ -15,8 +15,7 @@ export default function ServersPage() {
 
   useEffect(() => {
     // Удаляю демо-данные серверов и заменяю их пустым массивом
-    const servers = [];
-    setServers(servers)
+    setServers([])
     setLoading(false)
   }, [])
 

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { supabase } from "@/lib/supabase"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -20,6 +21,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [successMessage, setSuccessMessage] = useState("")
+  const [userData, setUserData] = useState(null)
 
   useEffect(() => {
     // Проверяем, пришел ли пользователь после успешной регистрации
@@ -28,6 +30,25 @@ export default function LoginPage() {
       setSuccessMessage("Регистрация успешна! Теперь вы можете войти в систему.")
     }
   }, [searchParams])
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+
+      if (session) {
+        const { data, error } = await supabase.from("users").select("*").eq("id", session.user.id).single()
+
+        if (data) {
+          // Устанавливаем данные пользователя в глобальное состояние или контекст
+          setUserData(data)
+        }
+      }
+    }
+
+    fetchUserData()
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -83,127 +83,10 @@ export default function MonitoringPage() {
                 },
               ]
 
-        const serversList =
-          serversData?.length > 0
-            ? serversData
-            : [
-                {
-                  id: 1,
-                  name: "Majestic RP - New York",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "play.majestic-rp.com:22005",
-                  online: 450,
-                  maxPlayers: 500,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 2,
-                  name: "Majestic RP - Detroit",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "play.majestic-rp.com:22006",
-                  online: 380,
-                  maxPlayers: 500,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 3,
-                  name: "Majestic RP - Chicago",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "emerald.diamond-rp.com:7777",
-                  online: 850,
-                  maxPlayers: 1000,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 4,
-                  name: "Majestic RP - San Francisco",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "sapphire.diamond-rp.com:7777",
-                  online: 780,
-                  maxPlayers: 1000,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 5,
-                  name: "Majestic RP - Atlanta",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "phoenix.advance-rp.com:7777",
-                  online: 450,
-                  maxPlayers: 600,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 6,
-                  name: "Majestic RP - San Diego",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  // ip: "moon.eclipse-rp.com:22005",
-                  online: 420,
-                  maxPlayers: 500,
-                  status: "online",
-                  lastUpdated: "2023-03-28T15:30:00Z",
-                },
-                {
-                  id: 101,
-                  name: "Amazing RP - Moscow",
-                  project: "Amazing RP",
-                  projectId: "amazing-rp",
-                  ip: "amazing-rp.com:7777",
-                  online: 1200,
-                  maxPlayers: 1500,
-                  status: "online",
-                  lastUpdated: "2023-10-01T12:00:00Z",
-                },
-                {
-                  id: 102,
-                  name: "GTA5RP - Downtown",
-                  project: "GTA5RP",
-                  projectId: "gta5rp",
-                  ip: "gta5rp.com:7777",
-                  online: 800,
-                  maxPlayers: 1000,
-                  status: "online",
-                  lastUpdated: "2023-10-01T12:00:00Z",
-                },
-                {
-                  id: 103,
-                  name: "Arizona RP - Phoenix",
-                  project: "Arizona RP",
-                  projectId: "arizona-rp",
-                  ip: "arizona-rp.com:7777",
-                  online: 950,
-                  maxPlayers: 1200,
-                  status: "online",
-                  lastUpdated: "2023-10-01T12:00:00Z",
-                },
-                {
-                  id: 104,
-                  name: "Majestic RP - Los Angeles",
-                  project: "Majestic RP",
-                  projectId: "majestic-rp",
-                  ip: "majestic-rp.com:7777",
-                  online: 1100,
-                  maxPlayers: 1300,
-                  status: "online",
-                  lastUpdated: "2023-10-01T12:00:00Z",
-                },
-              ]
-
         setProjects(projectsList)
-        setServers(serversList)
 
         // Подсчет общего онлайна
-        const total = serversList.reduce((sum, server) => sum + server.online, 0)
+        const total = serversData?.reduce((sum, server) => sum + server.online, 0) || 0
         setTotalOnline(total)
       } catch (error) {
         console.error("Ошибка при загрузке данных:", error)
@@ -218,6 +101,12 @@ export default function MonitoringPage() {
     const interval = setInterval(fetchData, 5 * 60 * 1000)
     return () => clearInterval(interval)
   }, [supabase])
+
+  useEffect(() => {
+    // Удаляю демо-данные серверов и заменяю их пустым массивом
+    setServers([])
+    setLoading(false)
+  }, [])
 
   // Фильтрация серверов
   const filteredServers = servers.filter((server) => {
