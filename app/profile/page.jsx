@@ -23,6 +23,7 @@ import {
   Image,
 } from "lucide-react"
 import { supabase } from "@/lib/supabase"
+import MessagesPage from "../messages/page"
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -418,146 +419,7 @@ export default function ProfilePage() {
 
         {/* Основной контент */}
         <div className="lg:col-span-3">
-          <Card>
-            <CardHeader>
-              <div className="flex justify-between items-center">
-                <CardTitle>Информация о пользователе</CardTitle>
-                <Button variant="outline" onClick={isEditing ? handleSave : handleEditToggle}>
-                  {isEditing ? (
-                    <>
-                      <Save className="h-4 w-4 mr-2" />
-                      Сохранить
-                    </>
-                  ) : (
-                    <>
-                      <Edit className="h-4 w-4 mr-2" />
-                      Редактировать
-                    </>
-                  )}
-                </Button>
-              </div>
-              <CardDescription>Основная информация о вашем профиле</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {isEditing ? (
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="username">Имя пользователя</Label>
-                      <Input id="username" name="username" value={userData.username} onChange={handleChange} />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="age">Возраст</Label>
-                      <Input id="age" name="age" type="number" value={userData.age} onChange={handleChange} />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="project">Проект</Label>
-                      <Select
-                        name="project"
-                        value={userData.project}
-                        onValueChange={(value) => handleSelectChange("project", value)}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Выберите проект" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Majestic RP">Majestic RP</SelectItem>
-                          <SelectItem value="Diamond RP">Diamond RP</SelectItem>
-                          <SelectItem value="Advance RP">Advance RP</SelectItem>
-                          <SelectItem value="Eclipse RP">Eclipse RP</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="playingOn">Играет на</Label>
-                      <Select
-                        name="playingOn"
-                        value={userData.playingOn}
-                        onValueChange={(value) => handleSelectChange("playingOn", value)}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Выберите сервер" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Сервер 1">Сервер 1</SelectItem>
-                          <SelectItem value="Сервер 2">Сервер 2</SelectItem>
-                          <SelectItem value="Сервер 3">Сервер 3</SelectItem>
-                          <SelectItem value="Сервер 4">Сервер 4</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="discord">Discord</Label>
-                    <Input id="discord" name="discord" value={userData.discord} onChange={handleChange} />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="bio">О себе</Label>
-                    <Textarea id="bio" name="bio" value={userData.bio} onChange={handleChange} rows={4} />
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="flex items-start gap-3">
-                      <User className="h-5 w-5 text-primary mt-0.5" />
-                      <div>
-                        <h3 className="font-medium">Имя</h3>
-                        <p>{userData.username}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <Calendar className="h-5 w-5 text-primary mt-0.5" />
-                      <div>
-                        <h3 className="font-medium">Возраст</h3>
-                        <p>{userData.age} лет</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <GameController className="h-5 w-5 text-primary mt-0.5" />
-                      <div>
-                        <h3 className="font-medium">Проект</h3>
-                        <p>{userData.project}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <Server className="h-5 w-5 text-primary mt-0.5" />
-                      <div>
-                        <h3 className="font-medium">Играет на</h3>
-                        <p>{userData.playingOn}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <User className="h-5 w-5 text-primary mt-0.5" />
-                      <div>
-                        <h3 className="font-medium">Discord</h3>
-                        <p>{userData.discord}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t">
-                    <h3 className="font-medium mb-2">О себе</h3>
-                    <p className="text-muted-foreground">{userData.bio}</p>
-                  </div>
-
-                  <div className="pt-4 border-t flex items-center justify-between text-sm text-muted-foreground">
-                    <div>Зарегистрирован: {new Date(userData.registeredAt).toLocaleDateString()}</div>
-                    <div>Последний вход: {new Date(userData.lastLogin).toLocaleDateString()}</div>
-                  </div>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <MessagesPage />
         </div>
       </div>
     </div>
