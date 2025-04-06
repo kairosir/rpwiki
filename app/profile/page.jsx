@@ -22,7 +22,7 @@ import {
   Trash,
   Image,
 } from "lucide-react"
-import Messages from "../messages";
+import Messages from "./messages";
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
