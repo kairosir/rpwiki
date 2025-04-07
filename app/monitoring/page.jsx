@@ -49,36 +49,7 @@ export default function MonitoringPage() {
                   totalPlayers: 2500,
                   online: 1200,
                 },
-                {
-                  id: "diamond-rp",
-                  name: "Diamond RP",
-                  description: "Классический ролевой проект в GTA San Andreas",
-                  logo: "/placeholder.svg?height=100&width=100",
-                  categories: ["Транспорт", "Недвижимость", "Бизнесы", "Работы", "Фракции"],
-                  servers: 6,
-                  totalPlayers: 5000,
-                  online: 2300,
-                },
-                {
-                  id: "advance-rp",
-                  name: "Advance RP",
-                  description: "Продвинутый ролевой проект в GTA San Andreas",
-                  logo: "/placeholder.svg?height=100&width=100",
-                  categories: ["Транспорт", "Недвижимость", "Бизнесы", "Работы", "Фракции"],
-                  servers: 3,
-                  totalPlayers: 1800,
-                  online: 950,
-                },
-                {
-                  id: "eclipse-rp",
-                  name: "Eclipse RP",
-                  description: "Современный ролевой проект в GTA 5",
-                  logo: "/placeholder.svg?height=100&width=100",
-                  categories: ["Транспорт", "Недвижимость", "Бизнесы", "Работы", "Фракции"],
-                  servers: 2,
-                  totalPlayers: 1200,
-                  online: 750,
-                },
+                // ...другие проекты...
               ]
 
         setProjects(projectsList)
@@ -137,14 +108,12 @@ export default function MonitoringPage() {
       <h2 className="text-2xl font-bold mb-6">Активные сервера</h2>
       <Carousel itemsToShow={4} itemsToScroll={1} autoplay autoplaySpeed={5000} className="flex gap-4">
         {[
-          { id: 1, name: "Majestic RP - Сиэтл", online: 3130, logo: "/placeholder.svg" },
-          { id: 2, name: "Majestic RP - Хьюстон", online: 2231, logo: "/placeholder.svg" },
-          { id: 3, name: "Diamond RP - Emerald", online: 1806, logo: "/placeholder.svg" },
-          { id: 4, name: "Eclipse RP - Главный", online: 1192, logo: "/placeholder.svg" },
-          { id: 5, name: "Advance RP - Sapphire", online: 1170, logo: "/placeholder.svg" },
-          { id: 6, name: "Diamond RP - Ruby", online: 1500, logo: "/placeholder.svg" },
-          { id: 7, name: "Majestic RP - Лос-Анджелес", online: 2000, logo: "/placeholder.svg" },
-          { id: 8, name: "Advance RP - Diamond", online: 1700, logo: "/placeholder.svg" },
+          { id: 1, name: "Majestic RP - New York", online: 3200, logo: "/placeholder.svg" },
+          { id: 2, name: "Majestic RP - Los Angeles", online: 3100, logo: "/placeholder.svg" },
+          { id: 3, name: "GTA5RP - Downtown", online: 3000, logo: "/placeholder.svg" },
+          { id: 4, name: "GTA5RP - Uptown", online: 2900, logo: "/placeholder.svg" },
+          { id: 5, name: "Grand RP - Miami", online: 2800, logo: "/placeholder.svg" },
+          { id: 6, name: "Grand RP - Chicago", online: 2700, logo: "/placeholder.svg" },
         ].map((server) => (
           <div key={server.id} className="bg-card rounded-lg p-4 shadow-md flex flex-col items-center text-center w-48">
             <img
