@@ -135,40 +135,26 @@ export default function MonitoringPage() {
   const ActiveServers = () => (
     <div className="mt-12">
       <h2 className="text-2xl font-bold mb-6">Активные сервера</h2>
-      <Carousel itemsToShow={4} itemsToScroll={1} autoplay autoplaySpeed={3000}>
+      <Carousel itemsToShow={4} itemsToScroll={1} autoplay autoplaySpeed={5000}>
         {[
-          { id: 1, name: "Majestic RP - Сиэтл", online: 3130, description: "Популярный сервер в Сиэтле", logo: "/placeholder.svg" },
-          { id: 2, name: "Majestic RP - Хьюстон", online: 2231, description: "Сервер в Хьюстоне", logo: "/placeholder.svg" },
-          { id: 3, name: "Diamond RP - Emerald", online: 1806, description: "Классический сервер Emerald", logo: "/placeholder.svg" },
-          { id: 4, name: "Eclipse RP - Главный", online: 1192, description: "Современный сервер Eclipse", logo: "/placeholder.svg" },
-          { id: 5, name: "Advance RP - Sapphire", online: 1170, description: "Ролевой сервер Sapphire", logo: "/placeholder.svg" },
-          { id: 6, name: "Diamond RP - Ruby", online: 1500, description: "Сервер Ruby", logo: "/placeholder.svg" },
-          { id: 7, name: "Majestic RP - Лос-Анджелес", online: 2000, description: "Сервер в Лос-Анджелесе", logo: "/placeholder.svg" },
-          { id: 8, name: "Advance RP - Diamond", online: 1700, description: "Сервер Diamond", logo: "/placeholder.svg" },
+          { id: 1, name: "Majestic RP - Сиэтл", online: 3130, logo: "/placeholder.svg" },
+          { id: 2, name: "Majestic RP - Хьюстон", online: 2231, logo: "/placeholder.svg" },
+          { id: 3, name: "Diamond RP - Emerald", online: 1806, logo: "/placeholder.svg" },
+          { id: 4, name: "Eclipse RP - Главный", online: 1192, logo: "/placeholder.svg" },
+          { id: 5, name: "Advance RP - Sapphire", online: 1170, logo: "/placeholder.svg" },
+          { id: 6, name: "Diamond RP - Ruby", online: 1500, logo: "/placeholder.svg" },
+          { id: 7, name: "Majestic RP - Лос-Анджелес", online: 2000, logo: "/placeholder.svg" },
+          { id: 8, name: "Advance RP - Diamond", online: 1700, logo: "/placeholder.svg" },
         ].map((server) => (
-          <Card key={server.id} className="overflow-hidden">
-            <CardHeader className="pb-2">
-              <div className="flex items-center gap-3">
-                <img
-                  src={server.logo}
-                  alt={`${server.name} лого`}
-                  className="w-12 h-12 rounded-md"
-                />
-                <div>
-                  <CardTitle>{server.name}</CardTitle>
-                  <p className="text-xs text-muted-foreground">{server.online} игроков онлайн</p>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="pb-2">
-              <p className="text-sm text-muted-foreground mb-4">{server.description}</p>
-            </CardContent>
-            <CardFooter className="pt-2">
-              <Button variant="outline" className="w-full" asChild>
-                <Link href={`/servers/${server.id}`}>Подробнее</Link>
-              </Button>
-            </CardFooter>
-          </Card>
+          <div key={server.id} className="bg-card rounded-lg p-4 shadow-md flex flex-col items-center text-center">
+            <img
+              src={server.logo}
+              alt={`${server.name} лого`}
+              className="w-16 h-16 rounded-md mb-3"
+            />
+            <h3 className="text-lg font-bold">{server.name}</h3>
+            <p className="text-sm text-muted-foreground">{server.online} игроков онлайн</p>
+          </div>
         ))}
       </Carousel>
     </div>
