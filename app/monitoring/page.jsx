@@ -135,7 +135,7 @@ export default function MonitoringPage() {
   const ActiveServers = () => (
     <div className="mt-12">
       <h2 className="text-2xl font-bold mb-6">Активные сервера</h2>
-      <Carousel itemsToShow={4} itemsToScroll={1} autoplay autoplaySpeed={5000}>
+      <Carousel itemsToShow={4} itemsToScroll={1} autoplay autoplaySpeed={5000} className="flex gap-4">
         {[
           { id: 1, name: "Majestic RP - Сиэтл", online: 3130, logo: "/placeholder.svg" },
           { id: 2, name: "Majestic RP - Хьюстон", online: 2231, logo: "/placeholder.svg" },
