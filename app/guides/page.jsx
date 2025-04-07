@@ -490,7 +490,7 @@ export default function GuidesPage() {
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
         </div>
       ) : filteredGuides.length > 0 ? (
-        <div className="space-y-4 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {filteredGuides.map((guide) => (
             <div key={guide.id} className="bg-card rounded-lg shadow-sm overflow-hidden">
               <div
@@ -511,7 +511,6 @@ export default function GuidesPage() {
                   {expandedGuide === guide.id ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                 </Button>
               </div>
-
               {expandedGuide === guide.id && (
                 <div className="p-4 pt-0 border-t">
                   <p className="text-muted-foreground mb-4">{guide.shortDescription}</p>
@@ -531,7 +530,6 @@ export default function GuidesPage() {
           <p className="text-muted-foreground mb-4">
             По вашему запросу не найдено гайдов. Попробуйте изменить параметры поиска или фильтры.
           </p>
-          <Button onClick={resetFilters}>Сбросить фильтры</Button>
         </div>
       )}
 
