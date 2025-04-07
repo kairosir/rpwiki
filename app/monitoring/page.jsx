@@ -158,7 +158,14 @@ export default function MonitoringPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {servers.map((server) => (
+          {[
+            { id: 1, name: "Majestic RP - New York", project: "Majestic RP", online: 3200, maxPlayers: 4000, ip: "192.168.1.1", status: "online" },
+            { id: 2, name: "Majestic RP - Los Angeles", project: "Majestic RP", online: 3100, maxPlayers: 4000, ip: "192.168.1.2", status: "online" },
+            { id: 3, name: "GTA5RP - Downtown", project: "GTA5RP", online: 3000, maxPlayers: 3500, ip: "192.168.2.1", status: "online" },
+            { id: 4, name: "GTA5RP - Uptown", project: "GTA5RP", online: 2900, maxPlayers: 3500, ip: "192.168.2.2", status: "online" },
+            { id: 5, name: "Grand RP - Miami", project: "Grand RP", online: 2800, maxPlayers: 3000, ip: "192.168.3.1", status: "online" },
+            { id: 6, name: "Grand RP - Chicago", project: "Grand RP", online: 2700, maxPlayers: 3000, ip: "192.168.3.2", status: "online" },
+          ].map((server) => (
             <Card key={server.id} className="overflow-hidden">
               <div className="flex flex-col">
                 <div className="p-4 flex-grow">
