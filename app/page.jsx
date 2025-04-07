@@ -40,7 +40,7 @@ export default function Home() {
           <div>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold">Выберите проект</h2>
-              <Link href="/projects" className="text-primary hover:underline">
+              <Link href="/servers" className="text-primary hover:underline">
                 Все проекты
               </Link>
             </div>
