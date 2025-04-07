@@ -135,13 +135,22 @@ export default function MonitoringPage() {
   const ActiveServers = () => (
     <div className="mt-12">
       <h2 className="text-2xl font-bold mb-6">Активные сервера</h2>
-      <Carousel itemsToShow={4} itemsToScroll={1} autoplay>
-        {servers.slice(0, 8).map((server) => (
+      <Carousel itemsToShow={4} itemsToScroll={1} autoplay autoplaySpeed={3000}>
+        {[
+          { id: 1, name: "Majestic RP - Сиэтл", online: 3130, description: "Популярный сервер в Сиэтле", logo: "/placeholder.svg" },
+          { id: 2, name: "Majestic RP - Хьюстон", online: 2231, description: "Сервер в Хьюстоне", logo: "/placeholder.svg" },
+          { id: 3, name: "Diamond RP - Emerald", online: 1806, description: "Классический сервер Emerald", logo: "/placeholder.svg" },
+          { id: 4, name: "Eclipse RP - Главный", online: 1192, description: "Современный сервер Eclipse", logo: "/placeholder.svg" },
+          { id: 5, name: "Advance RP - Sapphire", online: 1170, description: "Ролевой сервер Sapphire", logo: "/placeholder.svg" },
+          { id: 6, name: "Diamond RP - Ruby", online: 1500, description: "Сервер Ruby", logo: "/placeholder.svg" },
+          { id: 7, name: "Majestic RP - Лос-Анджелес", online: 2000, description: "Сервер в Лос-Анджелесе", logo: "/placeholder.svg" },
+          { id: 8, name: "Advance RP - Diamond", online: 1700, description: "Сервер Diamond", logo: "/placeholder.svg" },
+        ].map((server) => (
           <Card key={server.id} className="overflow-hidden">
             <CardHeader className="pb-2">
               <div className="flex items-center gap-3">
                 <img
-                  src={server.logo || "/placeholder.svg"}
+                  src={server.logo}
                   alt={`${server.name} лого`}
                   className="w-12 h-12 rounded-md"
                 />
@@ -162,52 +171,6 @@ export default function MonitoringPage() {
           </Card>
         ))}
       </Carousel>
-    </div>
-  )
-
-  const PopularProjects = () => (
-    <div className="mt-12">
-      <h2 className="text-2xl font-bold mb-6">Популярные проекты</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {projects.map((project) => (
-          <Card key={project.id} className="overflow-hidden">
-            <CardHeader className="pb-2">
-              <div className="flex items-center gap-3">
-                <img
-                  src={project.logo || "/placeholder.svg"}
-                  alt={`${project.name} лого`}
-                  className="w-12 h-12 rounded-md"
-                />
-                <div>
-                  <CardTitle>{project.name}</CardTitle>
-                  <p className="text-xs text-muted-foreground">{project.servers} серверов</p>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="pb-2">
-              <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="text-xs text-muted-foreground">Всего игроков:</p>
-                  <p className="font-medium">{project.totalPlayers}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground">Онлайн:</p>
-                  <p className="font-medium text-primary">{project.online}</p>
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="pt-2">
-              <Button variant="outline" className="w-full" asChild>
-                <Link href={`/projects/${project.id}`}>
-                  Подробнее
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
     </div>
   )
 
@@ -323,7 +286,6 @@ export default function MonitoringPage() {
       />
 
       <ActiveServers />
-      <PopularProjects />
       <ServerList servers={filteredServers} />
     </div>
   )
