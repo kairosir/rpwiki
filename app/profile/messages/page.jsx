@@ -15,14 +15,15 @@ export default function MessagesPage() {
   const [selectedDialog, setSelectedDialog] = useState(null);
   const [newMessage, setNewMessage] = useState("");
 
-  // Загрузка сообщений из базы данных
+  // Загрузка сообщений из базы данных при выборе диалога
   useEffect(() => {
     if (selectedDialog) {
       fetch(`/api/messages?dialogId=${selectedDialog.id}`)
         .then((res) => res.json())
         .then((data) => {
           setMessages((prev) => ({ ...prev, [selectedDialog.id]: data }));
-        });
+        })
+        .catch((err) => console.error("Ошибка загрузки сообщений:", err));
     }
   }, [selectedDialog]);
 
