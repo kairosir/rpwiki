@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { Users, Server, Activity, ArrowRight, Clock } from "lucide-react"
+import { Carousel } from "@/components/ui/carousel"
 
 export default function MonitoringPage() {
   const [projects, setProjects] = useState([])
@@ -23,8 +24,6 @@ export default function MonitoringPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // В реальном приложении здесь был бы запрос к API или Supabase
-        // Для демонстрации используем моковые данные
         const { data: projectsData, error: projectsError } = await supabase.from("projects").select("*").order("name")
 
         if (projectsError) throw projectsError
@@ -36,7 +35,6 @@ export default function MonitoringPage() {
 
         if (serversError) throw serversError
 
-        // Если данных нет в базе, используем демо-данные
         const projectsList =
           projectsData?.length > 0
             ? projectsData
@@ -85,7 +83,6 @@ export default function MonitoringPage() {
 
         setProjects(projectsList)
 
-        // Подсчет общего онлайна
         const total = serversData?.reduce((sum, server) => sum + server.online, 0) || 0
         setTotalOnline(total)
       } catch (error) {
@@ -97,18 +94,15 @@ export default function MonitoringPage() {
 
     fetchData()
 
-    // Обновление данных каждые 5 минут
     const interval = setInterval(fetchData, 5 * 60 * 1000)
     return () => clearInterval(interval)
   }, [supabase])
 
   useEffect(() => {
-    // Удаляю демо-данные серверов и заменяю их пустым массивом
     setServers([])
     setLoading(false)
   }, [])
 
-  // Фильтрация серверов
   const filteredServers = servers.filter((server) => {
     if (activeTab !== "all" && server.projectId !== activeTab) return false
 
@@ -124,7 +118,6 @@ export default function MonitoringPage() {
     return true
   })
 
-  // Форматирование времени последнего обновления
   const formatLastUpdated = (dateString) => {
     const date = new Date(dateString)
     const now = new Date()
@@ -138,6 +131,39 @@ export default function MonitoringPage() {
 
     return date.toLocaleDateString()
   }
+
+  const ActiveServers = () => (
+    <div className="mt-12">
+      <h2 className="text-2xl font-bold mb-6">Активные сервера</h2>
+      <Carousel itemsToShow={4} itemsToScroll={1} autoplay>
+        {servers.slice(0, 8).map((server) => (
+          <Card key={server.id} className="overflow-hidden">
+            <CardHeader className="pb-2">
+              <div className="flex items-center gap-3">
+                <img
+                  src={server.logo || "/placeholder.svg"}
+                  alt={`${server.name} лого`}
+                  className="w-12 h-12 rounded-md"
+                />
+                <div>
+                  <CardTitle>{server.name}</CardTitle>
+                  <p className="text-xs text-muted-foreground">{server.online} игроков онлайн</p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="pb-2">
+              <p className="text-sm text-muted-foreground mb-4">{server.description}</p>
+            </CardContent>
+            <CardFooter className="pt-2">
+              <Button variant="outline" className="w-full" asChild>
+                <Link href={`/servers/${server.id}`}>Подробнее</Link>
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+      </Carousel>
+    </div>
+  )
 
   const PopularProjects = () => (
     <div className="mt-12">
@@ -296,6 +322,7 @@ export default function MonitoringPage() {
         backgroundColor="#f5f5f5"
       />
 
+      <ActiveServers />
       <PopularProjects />
       <ServerList servers={filteredServers} />
     </div>
