@@ -146,7 +146,7 @@ export default function MonitoringPage() {
           { id: 7, name: "Majestic RP - Лос-Анджелес", online: 2000, logo: "/placeholder.svg" },
           { id: 8, name: "Advance RP - Diamond", online: 1700, logo: "/placeholder.svg" },
         ].map((server) => (
-          <div key={server.id} className="bg-card rounded-lg p-4 shadow-md flex flex-col items-center text-center">
+          <div key={server.id} className="bg-card rounded-lg p-4 shadow-md flex flex-col items-center text-center w-48">
             <img
               src={server.logo}
               alt={`${server.name} лого`}
