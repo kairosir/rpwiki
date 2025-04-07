@@ -39,7 +39,6 @@ export default function GuidesPage() {
   const [loading, setLoading] = useState(true)
   const [projects, setProjects] = useState([])
   const [expandedGuide, setExpandedGuide] = useState(null)
-  const [rowExpandedGuides, setRowExpandedGuides] = useState({})
   const [searchQuery, setSearchQuery] = useState("")
   const [filters, setFilters] = useState({
     difficulty: {
@@ -209,11 +208,8 @@ export default function GuidesPage() {
     },
   ]
 
-  const toggleGuide = (guideId, rowIndex) => {
-    setRowExpandedGuides((prev) => ({
-      ...prev,
-      [rowIndex]: prev[rowIndex] === guideId ? null : guideId,
-    }))
+  const toggleGuide = (guideId) => {
+    setExpandedGuide((prev) => (prev === guideId ? null : guideId))
   }
 
   const handleFilterChange = (category, value, checked) => {
@@ -491,40 +487,37 @@ export default function GuidesPage() {
         </div>
       ) : filteredGuides.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {filteredGuides.map((guide, index) => {
-            const rowIndex = Math.floor(index / 3) // Определяем строку для текущего гайда
-            return (
-              <div key={guide.id} className="bg-card rounded-lg shadow-sm overflow-hidden">
-                <div
-                  className="flex items-center justify-between p-4 cursor-pointer hover:bg-accent transition-colors"
-                  onClick={() => toggleGuide(guide.id, rowIndex)}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex-shrink-0 bg-primary/10 text-primary p-2 rounded-full">{guide.icon}</div>
-                    <div>
-                      <span className="font-medium">{guide.title}</span>
-                      <div className="flex flex-wrap gap-2 mt-1">
-                        {getDifficultyBadge(guide.difficulty)}
-                        <Badge variant="secondary">{getProjectName(guide.project)}</Badge>
-                      </div>
+          {filteredGuides.map((guide) => (
+            <div key={guide.id} className="bg-card rounded-lg shadow-sm overflow-hidden">
+              <div
+                className="flex items-center justify-between p-4 cursor-pointer hover:bg-accent transition-colors"
+                onClick={() => toggleGuide(guide.id)}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex-shrink-0 bg-primary/10 text-primary p-2 rounded-full">{guide.icon}</div>
+                  <div>
+                    <span className="font-medium">{guide.title}</span>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {getDifficultyBadge(guide.difficulty)}
+                      <Badge variant="secondary">{getProjectName(guide.project)}</Badge>
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm">
-                    {rowExpandedGuides[rowIndex] === guide.id ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-                  </Button>
                 </div>
-                {rowExpandedGuides[rowIndex] === guide.id && (
-                  <div className="p-4 pt-0 border-t">
-                    <p className="text-muted-foreground mb-4">{guide.shortDescription}</p>
-                    <div className="flex justify-between items-center">
-                      <LikeDislikeButtons id={`guide-${guide.id}`} type="guide" />
-                      <DetailButton href={guide.href} />
-                    </div>
-                  </div>
-                )}
+                <Button variant="ghost" size="sm">
+                  {expandedGuide === guide.id ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                </Button>
               </div>
-            )
-          })}
+              {expandedGuide === guide.id && (
+                <div className="p-4 pt-0 border-t">
+                  <p className="text-muted-foreground mb-4">{guide.shortDescription}</p>
+                  <div className="flex justify-between items-center">
+                    <LikeDislikeButtons id={`guide-${guide.id}`} type="guide" />
+                    <DetailButton href={guide.href} />
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       ) : (
         <div className="text-center py-12 bg-muted/30 rounded-lg">
