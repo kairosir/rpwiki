@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,23 +11,48 @@ export default function MessagesPage() {
     { id: 2, avatar: "/placeholder.svg", name: "User2", lastMessage: "Спасибо за помощь!", date: "Вчера", unread: 0 },
     { id: 3, avatar: "/placeholder.svg", name: "User3", lastMessage: "Когда будет готово?", date: "Понедельник", unread: 5 },
   ]);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState({});
   const [selectedDialog, setSelectedDialog] = useState(null);
   const [newMessage, setNewMessage] = useState("");
 
+  // Загрузка сообщений из базы данных
+  useEffect(() => {
+    if (selectedDialog) {
+      fetch(`/api/messages?dialogId=${selectedDialog.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setMessages((prev) => ({ ...prev, [selectedDialog.id]: data }));
+        });
+    }
+  }, [selectedDialog]);
+
   const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      setMessages((prev) => [
+    if (newMessage.trim() && selectedDialog) {
+      const newMsg = {
+        id: Date.now(),
+        sender: "Вы",
+        content: newMessage,
+        date: "Сейчас",
+        type: "user",
+      };
+
+      // Сохранение сообщения в базе данных
+      fetch(`/api/messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ dialogId: selectedDialog.id, message: newMsg }),
+      });
+
+      setMessages((prev) => ({
         ...prev,
-        { id: prev.length + 1, sender: "Вы", content: newMessage, date: "Сейчас", type: "user" },
-      ]);
+        [selectedDialog.id]: [...(prev[selectedDialog.id] || []), newMsg],
+      }));
       setNewMessage("");
     }
   };
 
   const handleSelectDialog = (dialog) => {
     setSelectedDialog(dialog);
-    setMessages([]); // Очистка сообщений при переключении чата
     setDialogs((prev) =>
       prev.map((d) =>
         d.id === dialog.id ? { ...d, unread: 0 } : d // Сброс количества пропущенных сообщений
@@ -71,8 +96,8 @@ export default function MessagesPage() {
           {selectedDialog ? `Чат с ${selectedDialog.name}` : "Выберите диалог"}
         </h2>
         <div className="flex-1 overflow-y-auto border rounded p-4 bg-muted mb-4">
-          {messages.length > 0 ? (
-            messages.map((msg) => (
+          {selectedDialog && messages[selectedDialog.id]?.length > 0 ? (
+            messages[selectedDialog.id].map((msg) => (
               <div key={msg.id} className="mb-4">
                 <p className={`font-bold text-sm ${msg.type === "support" ? "text-blue-600" : "text-green-600"}`}>
                   {msg.sender} <span className="text-xs text-muted-foreground">{msg.date}</span>
