@@ -12,6 +12,11 @@ export default function ProjectPage() {
   const [project, setProject] = useState(null)
 
   useEffect(() => {
+    if (!projectId) {
+      console.error("❌ Ошибка: projectId отсутствует.")
+      return
+    }
+
     // В реальном приложении здесь был бы запрос к API
     const projectData = {
       "majestic-rp": {
@@ -152,6 +157,10 @@ export default function ProjectPage() {
 
     setProject(projectData[projectId] || null)
   }, [projectId])
+
+  if (!projectId) {
+    return <div>Ошибка: projectId отсутствует.</div>
+  }
 
   if (!project) {
     return (
