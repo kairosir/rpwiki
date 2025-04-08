@@ -96,6 +96,18 @@ const majesticRpVehicles = [
     image: "/placeholder.svg?height=150&width=250",
     description: "Боевой вертолет с ракетами и пулеметами.",
   },
+  {
+    id: 9,
+    name: "Bugatti Chiron",
+    type: "car",
+    class: "Hypercar",
+    price: 2750000,
+    speed: 9.9,
+    acceleration: 9.8,
+    handling: 9.0,
+    image: "/placeholder.svg?height=150&width=250",
+    description: "Роскошный гиперкар с потрясающим дизайном и невероятной мощностью. Один из самых быстрых и дорогих автомобилей в игре.",
+  },
 ];
 
 export default majesticRpVehicles; 
