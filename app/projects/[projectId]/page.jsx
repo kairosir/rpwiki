@@ -6,6 +6,7 @@ import Link from "next/link"
 import { ProjectCategoryGrid } from "@/components/project-category-grid"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Users, Server, Calendar } from "lucide-react"
+import projects from "@/data/projects"
 
 export default function ProjectPage() {
   const { projectId } = useParams()
@@ -17,145 +18,9 @@ export default function ProjectPage() {
       return
     }
 
-    // В реальном приложении здесь был бы запрос к API
-    const projectData = {
-      "majestic-rp": {
-        name: "Majestic RP",
-        logo: "/placeholder.svg?height=120&width=120",
-        banner: "/placeholder.svg?height=300&width=1200",
-        description:
-          "Популярный ролевой проект в GTA 5 с реалистичной экономикой и уникальными механиками. Проект предлагает глубокий ролевой опыт с проработанной экономикой, разнообразными профессиями и возможностями для бизнеса.",
-        game: "GTA 5",
-        players: 15937,
-        servers: 14,
-        founded: "2018",
-        website: "https://example.com",
-        discord: "https://discord.gg/example",
-        categories: [
-          { title: "Карта", icon: "Map", href: `/projects/${projectId}/map` },
-          { title: "Транспорт", icon: "Car", href: `/projects/${projectId}/vehicles` },
-          { title: "Недвижимость", icon: "Home", href: `/projects/${projectId}/realty` },
-          { title: "Бизнесы", icon: "DollarSign", href: `/projects/${projectId}/biz` },
-          { title: "Одежда", icon: "Shirt", href: `/projects/${projectId}/clothes` },
-          { title: "Скины", icon: "Sparkles", href: `/projects/${projectId}/skins` },
-          { title: "Предметы", icon: "Package", href: `/projects/${projectId}/items` },
-          { title: "Работы", icon: "Briefcase", href: `/projects/${projectId}/jobs` },
-          { title: "Фракции", icon: "Users", href: `/projects/${projectId}/factions` },
-          { title: "Гайды", icon: "BookOpen", href: `/projects/${projectId}/guides` },
-          { title: "Донат", icon: "Heart", href: `/projects/${projectId}/donate` },
-        ],
-        features: [
-          "Реалистичная экономика",
-          "Уникальные механики",
-          "Проработанные фракции",
-          "Разнообразные бизнесы",
-          "Активное сообщество",
-          "Регулярные обновления",
-        ],
-      },
-      "diamond-rp": {
-        name: "Diamond RP",
-        logo: "/placeholder.svg?height=120&width=120",
-        banner: "/placeholder.svg?height=300&width=1200",
-        description:
-          "Классический ролевой проект в GTA San Andreas с многолетней историей и стабильным комьюнити. Один из старейших и наиболее уважаемых проектов в СНГ с богатой историей и традициями.",
-        game: "GTA SA:MP",
-        players: 8245,
-        servers: 8,
-        founded: "2011",
-        website: "https://example.com",
-        discord: "https://discord.gg/example",
-        categories: [
-          { title: "Карта", icon: "Map", href: `/projects/${projectId}/map` },
-          { title: "Транспорт", icon: "Car", href: `/projects/${projectId}/vehicles` },
-          { title: "Недвижимость", icon: "Home", href: `/projects/${projectId}/realty` },
-          { title: "Бизнесы", icon: "DollarSign", href: `/projects/${projectId}/biz` },
-          { title: "Скины", icon: "Sparkles", href: `/projects/${projectId}/skins` },
-          { title: "Предметы", icon: "Package", href: `/projects/${projectId}/items` },
-          { title: "Работы", icon: "Briefcase", href: `/projects/${projectId}/jobs` },
-          { title: "Фракции", icon: "Users", href: `/projects/${projectId}/factions` },
-          { title: "Гайды", icon: "BookOpen", href: `/projects/${projectId}/guides` },
-          { title: "Донат", icon: "Heart", href: `/projects/${projectId}/donate` },
-        ],
-        features: [
-          "Проверенная временем стабильность",
-          "Классический геймплей",
-          "Сильное комьюнити",
-          "Разнообразные сервера",
-          "Проработанная система фракций",
-          "Богатая история",
-        ],
-      },
-      "advance-rp": {
-        name: "Advance RP",
-        logo: "/placeholder.svg?height=120&width=120",
-        banner: "/placeholder.svg?height=300&width=1200",
-        description:
-          "Продвинутый ролевой проект в GTA San Andreas с глубокой проработкой ролевых механик. Проект известен своим хардкорным подходом к ролевой игре и уникальными игровыми механиками.",
-        game: "GTA SA:MP",
-        players: 7632,
-        servers: 6,
-        founded: "2012",
-        website: "https://example.com",
-        discord: "https://discord.gg/example",
-        categories: [
-          { title: "Карта", icon: "Map", href: `/projects/${projectId}/map` },
-          { title: "Транспорт", icon: "Car", href: `/projects/${projectId}/vehicles` },
-          { title: "Недвижимость", icon: "Home", href: `/projects/${projectId}/realty` },
-          { title: "Бизнесы", icon: "DollarSign", href: `/projects/${projectId}/biz` },
-          { title: "Скины", icon: "Sparkles", href: `/projects/${projectId}/skins` },
-          { title: "Предметы", icon: "Package", href: `/projects/${projectId}/items` },
-          { title: "Работы", icon: "Briefcase", href: `/projects/${projectId}/jobs` },
-          { title: "Фракции", icon: "Users", href: `/projects/${projectId}/factions` },
-          { title: "Гайды", icon: "BookOpen", href: `/projects/${projectId}/guides` },
-          { title: "Донат", icon: "Heart", href: `/projects/${projectId}/donate` },
-        ],
-        features: [
-          "Хардкорный ролевой геймплей",
-          "Сложная экономика",
-          "Детализированные механики",
-          "Строгие правила RP",
-          "Уникальные игровые системы",
-          "Активная администрация",
-        ],
-      },
-      "eclipse-rp": {
-        name: "Eclipse RP",
-        logo: "/placeholder.svg?height=120&width=120",
-        banner: "/placeholder.svg?height=300&width=1200",
-        description:
-          "Современный ролевой проект в GTA 5 с упором на социальное взаимодействие и бизнес. Проект создан для комфортной игры как новичков, так и опытных игроков с акцентом на социальные механики.",
-        game: "GTA 5",
-        players: 12458,
-        servers: 10,
-        founded: "2019",
-        website: "https://example.com",
-        discord: "https://discord.gg/example",
-        categories: [
-          { title: "Карта", icon: "Map", href: `/projects/${projectId}/map` },
-          { title: "Транспорт", icon: "Car", href: `/projects/${projectId}/vehicles` },
-          { title: "Недвижимость", icon: "Home", href: `/projects/${projectId}/realty` },
-          { title: "Бизнесы", icon: "DollarSign", href: `/projects/${projectId}/biz` },
-          { title: "Одежда", icon: "Shirt", href: `/projects/${projectId}/clothes` },
-          { title: "Скины", icon: "Sparkles", href: `/projects/${projectId}/skins` },
-          { title: "Предметы", icon: "Package", href: `/projects/${projectId}/items` },
-          { title: "Работы", icon: "Briefcase", href: `/projects/${projectId}/jobs` },
-          { title: "Фракции", icon: "Users", href: `/projects/${projectId}/factions` },
-          { title: "Гайды", icon: "BookOpen", href: `/projects/${projectId}/guides` },
-          { title: "Донат", icon: "Heart", href: `/projects/${projectId}/donate` },
-        ],
-        features: [
-          "Дружелюбное сообщество",
-          "Упрощенный вход для новичков",
-          "Развитая бизнес-система",
-          "Социальные механики",
-          "Современный интерфейс",
-          "Частые мероприятия",
-        ],
-      },
-    }
-
-    setProject(projectData[projectId] || null)
+    // Получаем данные проекта из импортированного файла
+    const projectData = projects[projectId] || null
+    setProject(projectData)
   }, [projectId])
 
   if (!projectId) {
@@ -212,19 +77,18 @@ export default function ProjectPage() {
               <span>Основан в {project.founded}</span>
             </div>
           </div>
-
-          <div className="flex flex-wrap gap-2">
-            <Button asChild>
-              <Link href={project.website} target="_blank">
-                Официальный сайт
-                <ExternalLink className="h-4 w-4 ml-1" />
-              </Link>
+          <div className="flex flex-wrap gap-2 mt-4">
+            <Button asChild size="sm" variant="outline">
+              <a href={project.website} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Сайт
+              </a>
             </Button>
-            <Button variant="outline" asChild>
-              <Link href={project.discord} target="_blank">
+            <Button asChild size="sm" variant="outline">
+              <a href={project.discord} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-4 w-4 mr-2" />
                 Discord
-                <ExternalLink className="h-4 w-4 ml-1" />
-              </Link>
+              </a>
             </Button>
           </div>
         </div>
@@ -232,15 +96,16 @@ export default function ProjectPage() {
 
       {/* Описание проекта */}
       <div className="mb-8">
-        <div className="bg-card rounded-lg p-6 shadow-sm">
-          <h2 className="text-xl font-bold mb-4">О проекте</h2>
-          <p className="text-muted-foreground mb-6">{project.description}</p>
+        <h2 className="text-2xl font-bold mb-4">О проекте</h2>
+        <p className="text-muted-foreground">{project.description}</p>
 
-          <h3 className="font-bold mb-3">Особенности проекта</h3>
+        {/* Особенности */}
+        <div className="mt-6">
+          <h3 className="text-xl font-semibold mb-3">Особенности проекта</h3>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {project.features.map((feature, index) => (
-              <li key={index} className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary"></div>
+              <li key={index} className="flex items-start">
+                <span className="text-primary mr-2">•</span>
                 <span>{feature}</span>
               </li>
             ))}
@@ -248,12 +113,12 @@ export default function ProjectPage() {
         </div>
       </div>
 
-      {/* Категории проекта */}
+      {/* Категории */}
       <div>
-        <h2 className="text-2xl font-bold mb-6">Разделы проекта</h2>
+        <h2 className="text-2xl font-bold mb-6">Разделы вики по проекту</h2>
         <ProjectCategoryGrid categories={project.categories} />
       </div>
     </div>
-  )
+  );
 }
 

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { LikeDislikeButtons } from "@/components/like-dislike-buttons"
 import { DetailButton } from "@/components/detail-button"
 import { Search, Car, Truck, Bike, Ship, Plane, Filter, ArrowUpDown } from "lucide-react"
+import { loadCategoryData, loadCategoryCommon } from "@/utils/data-loader"
 
 export default function VehiclesPage() {
   const { projectId } = useParams()
@@ -17,114 +18,31 @@ export default function VehiclesPage() {
   const [sortBy, setSortBy] = useState("name")
   const [sortOrder, setSortOrder] = useState("asc")
   const [vehicles, setVehicles] = useState([])
+  const [commonData, setCommonData] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // В реальном приложении здесь был бы запрос к API
-    setTimeout(() => {
-      const vehiclesData = [
-        {
-          id: 1,
-          name: "Adder",
-          type: "car",
-          class: "Super",
-          price: 1000000,
-          speed: 9.2,
-          acceleration: 8.6,
-          handling: 8.0,
-          image: "/placeholder.svg?height=150&width=250",
-          description: "Один из самых быстрых автомобилей в игре с отличной управляемостью и ускорением.",
-        },
-        {
-          id: 2,
-          name: "Bati 801",
-          type: "bike",
-          class: "Motorcycles",
-          price: 15000,
-          speed: 9.5,
-          acceleration: 9.3,
-          handling: 8.5,
-          image: "/placeholder.svg?height=150&width=250",
-          description: "Спортивный мотоцикл с высокой скоростью и отличным ускорением.",
-        },
-        {
-          id: 3,
-          name: "Phantom",
-          type: "truck",
-          class: "Commercial",
-          price: 120000,
-          speed: 5.5,
-          acceleration: 4.0,
-          handling: 3.5,
-          image: "/placeholder.svg?height=150&width=250",
-          description: "Мощный грузовик для перевозки тяжелых грузов и трейлеров.",
-        },
-        {
-          id: 4,
-          name: "Dinghy",
-          type: "boat",
-          class: "Boats",
-          price: 25000,
-          speed: 6.5,
-          acceleration: 7.0,
-          handling: 6.0,
-          image: "/placeholder.svg?height=150&width=250",
-          description: "Небольшая быстрая лодка для перемещения по воде.",
-        },
-        {
-          id: 5,
-          name: "Luxor",
-          type: "plane",
-          class: "Planes",
-          price: 1500000,
-          speed: 8.5,
-          acceleration: 7.5,
-          handling: 7.0,
-          image: "/placeholder.svg?height=150&width=250",
-          description: "Роскошный частный самолет для быстрого перемещения по карте.",
-        },
-        {
-          id: 6,
-          name: "Zentorno",
-          type: "car",
-          class: "Super",
-          price: 725000,
-          speed: 9.0,
-          acceleration: 8.8,
-          handling: 8.5,
-          image: "/placeholder.svg?height=150&width=250",
-          description: "Спортивный автомобиль с отличными характеристиками и агрессивным дизайном.",
-        },
-        {
-          id: 7,
-          name: "Sanchez",
-          type: "bike",
-          class: "Off-road",
-          price: 8000,
-          speed: 7.5,
-          acceleration: 8.0,
-          handling: 7.0,
-          image: "/placeholder.svg?height=150&width=250",
-          description: "Внедорожный мотоцикл, идеальный для езды по бездорожью.",
-        },
-        {
-          id: 8,
-          name: "Buzzard",
-          type: "plane",
-          class: "Helicopters",
-          price: 1750000,
-          speed: 8.0,
-          acceleration: 7.0,
-          handling: 8.0,
-          image: "/placeholder.svg?height=150&width=250",
-          description: "Боевой вертолет с ракетами и пулеметами.",
-        },
-      ]
+    async function loadData() {
+      setLoading(true)
+      try {
+        // Загружаем общие данные категории и данные для проекта
+        const [vehiclesCommonData, projectVehicles] = await Promise.all([
+          loadCategoryCommon('vehicles'),
+          loadCategoryData('vehicles', projectId)
+        ]);
+        
+        setCommonData(vehiclesCommonData);
+        setVehicles(projectVehicles);
+      } catch (error) {
+        console.error(`Ошибка загрузки данных для проекта ${projectId}:`, error);
+        setVehicles([]);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-      setVehicles(vehiclesData)
-      setLoading(false)
-    }, 800)
-  }, [projectId])
+    loadData();
+  }, [projectId]);
 
   // Фильтрация транспорта по типу и поисковому запросу
   const filteredVehicles = vehicles.filter((vehicle) => {
@@ -160,14 +78,25 @@ export default function VehiclesPage() {
     }
   }
 
+  // Отображаем загрузку пока не получим данные
+  if (loading || !commonData) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center py-12">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
+          <p className="mt-4 text-muted-foreground">Загрузка данных...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">
-        Транспорт - {projectId.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
+        {commonData.info.title} - {projectId.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
       </h1>
       <p className="text-muted-foreground mb-8">
-        Полный каталог транспортных средств, доступных в проекте. Выбирайте из множества автомобилей, мотоциклов, лодок
-        и самолетов.
+        {commonData.info.description}
       </p>
 
       {/* Рекламный баннер */}
@@ -207,92 +136,90 @@ export default function VehiclesPage() {
         </div>
       </div>
 
-      {/* Табы для фильтрации по типу */}
-      <div className="my-6">
-        <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="w-full md:w-auto grid grid-cols-3 md:flex md:flex-row gap-2">
-            <TabsTrigger value="all" className="flex items-center gap-1">
-              <Filter className="h-4 w-4" />
-              <span>Все</span>
+      {/* Табы с категориями транспорта */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
+        <TabsList className="grid grid-cols-3 md:grid-cols-6 gap-2">
+          {commonData.types.map((type) => (
+            <TabsTrigger key={type.id} value={type.id} className="flex items-center gap-2">
+              {type.id === "all" && <Car className="h-4 w-4" />}
+              {type.id === "car" && <Car className="h-4 w-4" />}
+              {type.id === "bike" && <Bike className="h-4 w-4" />}
+              {type.id === "truck" && <Truck className="h-4 w-4" />}
+              {type.id === "boat" && <Ship className="h-4 w-4" />}
+              {type.id === "plane" && <Plane className="h-4 w-4" />}
+              {type.name}
             </TabsTrigger>
-            <TabsTrigger value="car" className="flex items-center gap-1">
-              <Car className="h-4 w-4" />
-              <span>Автомобили</span>
-            </TabsTrigger>
-            <TabsTrigger value="bike" className="flex items-center gap-1">
-              <Bike className="h-4 w-4" />
-              <span>Мотоциклы</span>
-            </TabsTrigger>
-            <TabsTrigger value="truck" className="flex items-center gap-1">
-              <Truck className="h-4 w-4" />
-              <span>Грузовики</span>
-            </TabsTrigger>
-            <TabsTrigger value="boat" className="flex items-center gap-1">
-              <Ship className="h-4 w-4" />
-              <span>Лодки</span>
-            </TabsTrigger>
-            <TabsTrigger value="plane" className="flex items-center gap-1">
-              <Plane className="h-4 w-4" />
-              <span>Самолеты</span>
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </div>
+          ))}
+        </TabsList>
+      </Tabs>
 
       {/* Список транспорта */}
-      {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-        </div>
-      ) : (
+      {sortedVehicles.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sortedVehicles.map((vehicle) => (
-            <div key={vehicle.id} className="bg-card rounded-lg overflow-hidden shadow-md">
-              <div className="relative h-40 overflow-hidden">
-                <img
-                  src={vehicle.image || "/placeholder.svg"}
-                  alt={vehicle.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-2 right-2 bg-primary text-primary-foreground px-2 py-1 rounded text-xs font-medium">
-                  {vehicle.class}
-                </div>
-              </div>
+            <div key={vehicle.id} className="bg-card rounded-lg overflow-hidden shadow-sm">
+              <img
+                src={vehicle.image}
+                alt={vehicle.name}
+                className="w-full h-40 object-cover"
+              />
               <div className="p-4">
-                <h3 className="text-xl font-bold mb-2">{vehicle.name}</h3>
-                <p className="text-muted-foreground text-sm mb-4">{vehicle.description}</p>
-
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="text-xl font-bold">{vehicle.name}</h3>
+                  <div className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">
+                    {vehicle.class}
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+                  {vehicle.description}
+                </p>
                 <div className="grid grid-cols-3 gap-2 mb-4">
                   <div className="text-center">
-                    <div className="text-xs text-muted-foreground">Цена</div>
-                    <div className="font-medium">${vehicle.price.toLocaleString()}</div>
+                    <div className="text-xs text-muted-foreground">Скорость</div>
+                    <div className="font-semibold">{vehicle.speed}</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-xs text-muted-foreground">Скорость</div>
-                    <div className="font-medium">{vehicle.speed}/10</div>
+                    <div className="text-xs text-muted-foreground">Ускорение</div>
+                    <div className="font-semibold">{vehicle.acceleration}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-xs text-muted-foreground">Управление</div>
-                    <div className="font-medium">{vehicle.handling}/10</div>
+                    <div className="font-semibold">{vehicle.handling}</div>
                   </div>
                 </div>
-              </div>
-              <div className="px-4 py-3 bg-muted flex justify-between items-center">
-                <LikeDislikeButtons id={`vehicle-${vehicle.id}`} type="vehicle" />
-                <DetailButton href={`/projects/${projectId}/vehicles/${vehicle.id}`} />
+                <div className="flex justify-between items-center">
+                  <div className="font-bold text-lg">
+                    ${vehicle.price.toLocaleString()}
+                  </div>
+                  <div className="flex gap-2">
+                    <LikeDislikeButtons id={`vehicle-${vehicle.id}`} />
+                    <DetailButton href={`/projects/${projectId}/vehicles/${vehicle.id}`} />
+                  </div>
+                </div>
               </div>
             </div>
           ))}
         </div>
-      )}
-
-      {/* Если нет результатов */}
-      {!loading && sortedVehicles.length === 0 && (
+      ) : (
         <div className="text-center py-12">
-          <p className="text-xl font-medium mb-2">Транспорт не найден</p>
-          <p className="text-muted-foreground">Попробуйте изменить параметры поиска или фильтры</p>
+          <div className="text-muted-foreground mb-4">По вашему запросу ничего не найдено</div>
+          <Button onClick={() => { setSearchQuery(""); setActiveTab("all"); }}>
+            Сбросить фильтры
+          </Button>
         </div>
       )}
+
+      {/* Рекламный баннер */}
+      <div className="mt-10">
+        <AdBanner
+          id="vehicles-bottom-banner"
+          position="footer"
+          imageUrl="/placeholder.svg?height=90&width=728"
+          targetUrl="https://example.com/ad-vehicles-bottom"
+          altText="Реклама игровых товаров"
+          backgroundColor="#f5f5f5"
+        />
+      </div>
     </div>
   )
 }
