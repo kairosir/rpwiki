@@ -6,7 +6,6 @@ import Link from "next/link"
 import { ProjectCategoryGrid } from "@/components/project-category-grid"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Users, Server, Calendar } from "lucide-react"
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import projects from "@/data/projects"
 
 export default function ProjectPage() {
@@ -38,19 +37,6 @@ export default function ProjectPage() {
 
   return (
     <div>
-      {/* Навигация */}
-      <Breadcrumb className="mb-6">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/monitoring">Мониторинг</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>{project.name}</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-
       {/* Баннер проекта */}
       <div className="relative h-48 md:h-64 overflow-hidden rounded-lg mb-8">
         <img
@@ -130,10 +116,7 @@ export default function ProjectPage() {
       {/* Категории */}
       <div>
         <h2 className="text-2xl font-bold mb-6">Разделы вики по проекту</h2>
-        <ProjectCategoryGrid 
-          categories={project.categories} 
-          projectId={projectId}
-        />
+        <ProjectCategoryGrid categories={project.categories} />
       </div>
     </div>
   );

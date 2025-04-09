@@ -1,17 +1,17 @@
-// Данные о бизнесах, общие для всех проектов
-const businessesCommon = {
+// Общие данные о бизнесах для всех проектов
+const bizCommon = {
   info: {
     title: "Бизнесы",
-    description: "Полный каталог доступных бизнесов на проекте. Выбирайте из различных типов: магазины, сервисы, развлечения и многое другое."
+    description: "Полный список бизнесов, доступных в проекте. Магазины, заправки, рестораны и другие виды бизнеса."
   },
   types: [
-    { id: "all", name: "Все", icon: "Building" },
-    { id: "shop", name: "Магазины", icon: "Store" },
-    { id: "food", name: "Рестораны", icon: "Utensils" },
-    { id: "service", name: "Сервисы", icon: "Wrench" },
+    { id: "all", name: "Все бизнесы", icon: "Store" },
+    { id: "shop", name: "Магазины", icon: "ShoppingCart" },
+    { id: "gas", name: "Заправки", icon: "Fuel" },
+    { id: "food", name: "Еда", icon: "Utensils" },
     { id: "entertainment", name: "Развлечения", icon: "Music" },
-    { id: "car_dealer", name: "Автосалоны", icon: "Car" }
+    { id: "service", name: "Услуги", icon: "Wrench" }
   ]
 };
 
-export default businessesCommon; 
+export default bizCommon; 

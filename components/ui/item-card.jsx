@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 export function ItemCard({ title, description, image, link, stats }) {
   return (
     <div className="relative flex flex-col h-full group rounded-lg border p-4 hover:border-foreground/50 transition-colors">
-      <div className="flex flex-col gap-3 h-full">
+      <div className="flex flex-col gap-4 h-full">
         <div className="relative aspect-[16/9] overflow-hidden rounded-lg">
           <Image
             src={image || "/placeholder.svg"}
@@ -23,30 +23,24 @@ export function ItemCard({ title, description, image, link, stats }) {
           <p className="text-sm text-muted-foreground line-clamp-2">
             {description}
           </p>
-        </div>
-
-        <div className="flex flex-col gap-2">
+          
           {stats && (
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+            <div className="grid grid-cols-2 gap-2 mt-2">
               {Object.entries(stats).map(([key, value]) => (
-                <div key={key} className="flex items-center gap-1 text-xs">
-                  <span className="text-muted-foreground capitalize">{key}:</span>
-                  <span className="font-medium">{value}</span>
+                <div key={key} className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground capitalize">{key}:</span>
+                  <span className="text-xs font-medium">{value}</span>
                 </div>
               ))}
             </div>
           )}
-
-          <Link href={link} className="w-full">
-            <Button 
-              className="w-full h-8 mt-1" 
-              variant="secondary"
-              size="sm"
-            >
-              Подробнее
-            </Button>
-          </Link>
         </div>
+
+        <Link href={link} className="mt-auto w-full">
+          <Button className="w-full" variant="secondary">
+            Подробнее
+          </Button>
+        </Link>
       </div>
     </div>
   )
