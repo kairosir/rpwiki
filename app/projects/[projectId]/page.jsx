@@ -36,7 +36,7 @@ export default function ProjectPage() {
   }
 
   return (
-    <div>
+    <div className="max-w-full overflow-x-hidden">
       {/* Баннер проекта */}
       <div className="relative h-48 md:h-64 overflow-hidden rounded-lg mb-8">
         <img
@@ -48,7 +48,7 @@ export default function ProjectPage() {
       </div>
 
       {/* Шапка проекта */}
-      <div className="flex flex-col md:flex-row gap-6 -mt-20 mb-8 relative">
+      <div className="flex flex-col md:flex-row gap-6 -mt-20 mb-8 relative px-4 md:px-0">
         <div className="w-24 h-24 md:w-32 md:h-32 rounded-lg overflow-hidden border-4 border-background bg-card">
           <img
             src={project.logo || "/placeholder.svg"}
@@ -95,7 +95,7 @@ export default function ProjectPage() {
       </div>
 
       {/* Описание проекта */}
-      <div className="mb-8">
+      <div className="mb-8 px-4 md:px-0">
         <h2 className="text-2xl font-bold mb-4">О проекте</h2>
         <p className="text-muted-foreground">{project.description}</p>
 
@@ -114,7 +114,7 @@ export default function ProjectPage() {
       </div>
 
       {/* Категории */}
-      <div>
+      <div className="px-4 md:px-0">
         <h2 className="text-2xl font-bold mb-6">Разделы вики по проекту</h2>
         <ProjectCategoryGrid categories={project.categories} />
       </div>
