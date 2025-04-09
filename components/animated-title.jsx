@@ -11,28 +11,48 @@ export function AnimatedTitle() {
   }, [])
 
   if (!mounted) {
-    return <span>GTA RP Wiki</span>
+    return (
+      <div className="w-[150px]">
+        <span>GTA RP Wiki</span>
+      </div>
+    )
   }
 
   return (
-    <TypeAnimation
-      sequence={[
-        'GTA RP Wiki',
-        2000,
-        '',
-        500,
-        'GTA',
-        300,
-        'GTA RP',
-        300,
-        'GTA RP Wiki',
-        2000,
-      ]}
-      wrapper="span"
-      speed={100}
-      style={{ display: 'inline-block' }}
-      repeat={Infinity}
-      cursor={true}
-    />
+    <div className="w-[150px]">
+      <TypeAnimation
+        sequence={[
+          'G',
+          200,
+          'GT',
+          200,
+          'GTA',
+          400,
+          'GTA ',
+          200,
+          'GTA R',
+          200,
+          'GTA RP',
+          400,
+          'GTA RP ',
+          200,
+          'GTA RP W',
+          200,
+          'GTA RP Wi',
+          200,
+          'GTA RP Wik',
+          200,
+          'GTA RP Wiki',
+          3000,
+          '',
+          1000,
+        ]}
+        wrapper="span"
+        speed={150}
+        style={{ display: 'inline-block' }}
+        repeat={Infinity}
+        cursor={true}
+      />
+    </div>
   )
 } 
