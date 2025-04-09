@@ -5,50 +5,73 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AuthButtons } from "@/components/auth-buttons"
-import dynamic from 'next/dynamic'
-
-const AnimatedTitle = dynamic(() => import('@/components/animated-title').then(mod => mod.AnimatedTitle), {
-  ssr: false,
-  loading: () => <span>GTA RP Wiki</span>
-})
+import { MobileMenu } from "@/components/mobile-menu"
 
 export default function Header() {
   return (
-    <header className="border-b bg-background sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="text-xl font-bold text-primary">
-              <AnimatedTitle />
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 items-center">
+        <div className="mr-4 hidden md:flex">
+          <Link href="/" className="mr-6 flex items-center space-x-2">
+            <span className="hidden font-bold sm:inline-block">
+              RP Вики Портал
+            </span>
+          </Link>
+          <nav className="flex items-center space-x-6 text-sm font-medium">
+            <Link
+              href="/monitoring"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              Мониторинг
             </Link>
+            <Link
+              href="/guides"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              Гайды
+            </Link>
+            <Link
+              href="/news"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              Новости
+            </Link>
+            <Link
+              href="/community"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              Сообщество
+            </Link>
+            <Link
+              href="/support"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              Поддержка
+            </Link>
+          </nav>
+        </div>
+        
+        <div className="flex md:hidden">
+          <Link href="/" className="mr-6 flex items-center space-x-2">
+            <span className="font-bold">RP Вики</span>
+          </Link>
+        </div>
 
-            <nav className="hidden md:flex items-center gap-6 ml-6">
-              <Link href="/monitoring" className="text-sm hover:text-primary transition-colors">
-                Мониторинг
-              </Link>
-              <Link href="/guides" className="text-sm hover:text-primary transition-colors">
-                Гайды
-              </Link>
-              <Link href="/news" className="text-sm hover:text-primary transition-colors">
-                Новости
-              </Link>
-              <Link href="/community" className="text-sm hover:text-primary transition-colors">
-                Сообщество
-              </Link>
-              <Link href="/support" className="text-sm hover:text-primary transition-colors">
-                Поддержка
-              </Link>
-            </nav>
-          </div>
-
-          <div className="flex items-center gap-4">
+        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+          <div className="flex-1 md:hidden"></div>
+          <nav className="flex items-center">
             <ModeToggle />
             <AuthButtons />
-
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </div>
+            <div className="md:hidden">
+              <MobileMenu 
+                trigger={
+                  <Button variant="ghost" size="icon" className="ml-2">
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                }
+              />
+            </div>
+          </nav>
         </div>
       </div>
     </header>
