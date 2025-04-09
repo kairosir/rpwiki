@@ -3,6 +3,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AuthButtons } from "@/components/auth-buttons"
+import { TypeAnimation } from 'react-type-animation'
 
 export default function Header() {
   return (
@@ -11,7 +12,18 @@ export default function Header() {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Link href="/" className="text-xl font-bold text-primary">
-              GTA RP Wiki
+              <TypeAnimation
+                sequence={[
+                  'GTA RP Wiki',
+                  1000,
+                  'GTA RP Wiki',
+                  1000,
+                ]}
+                wrapper="span"
+                speed={50}
+                style={{ display: 'inline-block' }}
+                repeat={Infinity}
+              />
             </Link>
 
             <nav className="hidden md:flex items-center gap-6 ml-6">
