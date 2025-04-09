@@ -3,7 +3,12 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AuthButtons } from "@/components/auth-buttons"
-import { AnimatedTitle } from "@/components/animated-title"
+import dynamic from 'next/dynamic'
+
+const AnimatedTitle = dynamic(() => import('@/components/animated-title').then(mod => mod.AnimatedTitle), {
+  ssr: false,
+  loading: () => <span>GTA RP Wiki</span>
+})
 
 export default function Header() {
   return (
