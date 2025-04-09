@@ -18,14 +18,21 @@ export function AnimatedTitle() {
     <TypeAnimation
       sequence={[
         'GTA RP Wiki',
-        1000,
+        2000,
+        '',
+        500,
+        'GTA',
+        300,
+        'GTA RP',
+        300,
         'GTA RP Wiki',
-        1000,
+        2000,
       ]}
       wrapper="span"
-      speed={50}
+      speed={100}
       style={{ display: 'inline-block' }}
       repeat={Infinity}
+      cursor={true}
     />
   )
 } 
