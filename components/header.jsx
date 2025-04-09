@@ -6,6 +6,12 @@ import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AuthButtons } from "@/components/auth-buttons"
 import { MobileMenu } from "@/components/mobile-menu"
+import dynamic from 'next/dynamic'
+
+const AnimatedTitle = dynamic(() => import('@/components/animated-title').then(mod => mod.AnimatedTitle), {
+  ssr: false,
+  loading: () => <span>GTA RP Wiki</span>
+})
 
 export default function Header() {
   return (
@@ -13,9 +19,7 @@ export default function Header() {
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block">
-              RP Вики Портал
-            </span>
+            <AnimatedTitle />
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             <Link
@@ -53,7 +57,7 @@ export default function Header() {
         
         <div className="flex md:hidden">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold">RP Вики</span>
+            <span className="font-bold">GTA RP Wiki</span>
           </Link>
         </div>
 
