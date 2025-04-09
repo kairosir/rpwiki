@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Menu } from "lucide-react"
