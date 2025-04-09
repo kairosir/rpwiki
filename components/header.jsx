@@ -11,7 +11,7 @@ export default function Header() {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Link href="/" className="text-xl font-bold text-primary">
-              RP Вики Портал
+              GTA RP Wiki
             </Link>
 
             <nav className="hidden md:flex items-center gap-6 ml-6">
