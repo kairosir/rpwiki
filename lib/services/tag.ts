@@ -1,4 +1,4 @@
-import pool from '@/lib/db'
+import { pool } from '@/lib/db'
 
 export interface Tag {
   id: number
@@ -10,57 +10,37 @@ export interface Tag {
 }
 
 export const tagService = {
-  async getAll(): Promise<Tag[]> {
-    const { rows } = await pool.query('SELECT * FROM tags ORDER BY created_at DESC')
+  async getAllTags() {
+    const { rows } = await pool.query('SELECT * FROM tags ORDER BY name')
     return rows
   },
 
-  async getBySlug(slug: string): Promise<Tag | null> {
+  async getTagBySlug(slug: string) {
     const { rows } = await pool.query('SELECT * FROM tags WHERE slug = $1', [slug])
-    return rows[0] || null
+    return rows[0]
   },
 
-  async create(data: Omit<Tag, 'id' | 'created_at' | 'updated_at'>): Promise<Tag> {
+  async createTag(name: string, slug: string) {
     const { rows } = await pool.query(
-      'INSERT INTO tags (name, slug, description) VALUES ($1, $2, $3) RETURNING *',
-      [data.name, data.slug, data.description]
+      'INSERT INTO tags (name, slug) VALUES ($1, $2) RETURNING *',
+      [name, slug]
     )
     return rows[0]
   },
 
-  async update(slug: string, data: Partial<Omit<Tag, 'id' | 'created_at' | 'updated_at'>>): Promise<Tag | null> {
-    const sets: string[] = []
-    const values: any[] = []
-    let paramCount = 1
-
-    if (data.name) {
-      sets.push(`name = $${paramCount}`)
-      values.push(data.name)
-      paramCount++
-    }
-    if (data.slug) {
-      sets.push(`slug = $${paramCount}`)
-      values.push(data.slug)
-      paramCount++
-    }
-    if (data.description !== undefined) {
-      sets.push(`description = $${paramCount}`)
-      values.push(data.description)
-      paramCount++
-    }
-
-    if (sets.length === 0) return null
-
-    values.push(slug)
+  async updateTag(slug: string, name: string, newSlug: string) {
     const { rows } = await pool.query(
-      `UPDATE tags SET ${sets.join(', ')}, updated_at = NOW() WHERE slug = $${paramCount} RETURNING *`,
-      values
+      'UPDATE tags SET name = $1, slug = $2 WHERE slug = $3 RETURNING *',
+      [name, newSlug, slug]
     )
-    return rows[0] || null
+    return rows[0]
   },
 
-  async delete(slug: string): Promise<Tag | null> {
-    const { rows } = await pool.query('DELETE FROM tags WHERE slug = $1 RETURNING *', [slug])
-    return rows[0] || null
+  async deleteTag(slug: string) {
+    const { rows } = await pool.query(
+      'DELETE FROM tags WHERE slug = $1 RETURNING *',
+      [slug]
+    )
+    return rows[0]
   }
 } 
