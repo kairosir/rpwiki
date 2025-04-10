@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ads (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  type VARCHAR(20) NOT NULL,
+  position VARCHAR(50) NOT NULL,
+  image_url TEXT,
+  image_path TEXT,
+  target_url TEXT NOT NULL,
+  title TEXT,
+  description TEXT,
+  is_active BOOLEAN DEFAULT true,
+  background_color VARCHAR(20),
+  text_color VARCHAR(20),
+  start_date TIMESTAMP WITH TIME ZONE NOT NULL,
+  end_date TIMESTAMP WITH TIME ZONE NOT NULL,
+  views INTEGER DEFAULT 0,
+  clicks INTEGER DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+); 

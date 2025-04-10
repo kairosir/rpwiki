@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase';
 import { Content, SearchFilters } from '@/types/database';
+import pool from '@/lib/db'
 
 export class ContentService {
   private readonly table = 'content';
@@ -130,5 +131,128 @@ export class ContentService {
       console.error('Error deleting content:', error);
       throw error;
     }
+  }
+}
+
+export interface Content {
+  id: number
+  title: string
+  slug: string
+  content: string
+  category: string
+  image_url?: string
+  image_path?: string
+  author_id: number
+  published: boolean
+  created_at: Date
+  updated_at: Date
+}
+
+export const contentService = {
+  async getAll(): Promise<Content[]> {
+    const { rows } = await pool.query(`
+      SELECT c.*, u.username as author_name 
+      FROM content c 
+      LEFT JOIN users u ON c.author_id = u.id 
+      ORDER BY c.created_at DESC
+    `)
+    return rows
+  },
+
+  async getById(id: number): Promise<Content | null> {
+    const { rows } = await pool.query(`
+      SELECT c.*, u.username as author_name 
+      FROM content c 
+      LEFT JOIN users u ON c.author_id = u.id 
+      WHERE c.id = $1
+    `, [id])
+    return rows[0] || null
+  },
+
+  async create(data: Omit<Content, 'id' | 'created_at' | 'updated_at'>): Promise<Content> {
+    const { rows } = await pool.query(`
+      INSERT INTO content (
+        title, slug, content, category, image_url, image_path, 
+        author_id, published
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
+      RETURNING *
+    `, [
+      data.title,
+      data.slug,
+      data.content,
+      data.category,
+      data.image_url,
+      data.image_path,
+      data.author_id,
+      data.published
+    ])
+    return rows[0]
+  },
+
+  async update(id: number, data: Partial<Omit<Content, 'id' | 'created_at' | 'updated_at'>>): Promise<Content | null> {
+    const sets: string[] = []
+    const values: any[] = []
+    let paramCount = 1
+
+    if (data.title) {
+      sets.push(`title = $${paramCount}`)
+      values.push(data.title)
+      paramCount++
+    }
+    if (data.slug) {
+      sets.push(`slug = $${paramCount}`)
+      values.push(data.slug)
+      paramCount++
+    }
+    if (data.content) {
+      sets.push(`content = $${paramCount}`)
+      values.push(data.content)
+      paramCount++
+    }
+    if (data.category) {
+      sets.push(`category = $${paramCount}`)
+      values.push(data.category)
+      paramCount++
+    }
+    if (data.image_url !== undefined) {
+      sets.push(`image_url = $${paramCount}`)
+      values.push(data.image_url)
+      paramCount++
+    }
+    if (data.image_path !== undefined) {
+      sets.push(`image_path = $${paramCount}`)
+      values.push(data.image_path)
+      paramCount++
+    }
+    if (data.published !== undefined) {
+      sets.push(`published = $${paramCount}`)
+      values.push(data.published)
+      paramCount++
+    }
+
+    if (sets.length === 0) return null
+
+    values.push(id)
+    const { rows } = await pool.query(
+      `UPDATE content SET ${sets.join(', ')}, updated_at = NOW() WHERE id = $${paramCount} RETURNING *`,
+      values
+    )
+    return rows[0] || null
+  },
+
+  async delete(id: number): Promise<Content | null> {
+    const { rows } = await pool.query('DELETE FROM content WHERE id = $1 RETURNING *', [id])
+    return rows[0] || null
+  },
+
+  async getByCategory(category: string): Promise<Content[]> {
+    const { rows } = await pool.query(`
+      SELECT c.*, u.username as author_name 
+      FROM content c 
+      LEFT JOIN users u ON c.author_id = u.id 
+      WHERE c.category = $1 
+      ORDER BY c.created_at DESC
+    `, [category])
+    return rows
   }
 } 
