@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Search } from "@/components/search"
+import { GlobalSearch } from "@/components/global-search"
 import { ProjectCards } from "@/components/project-cards"
 import { NewsSection } from "@/components/news-section"
 import { TopServers } from "@/components/top-servers"
@@ -23,7 +23,7 @@ export default function Home() {
               Ваш путеводитель по миру ролевых игр. Выберите проект и погрузитесь в увлекательный мир RP.
             </p>
             <div className="w-full max-w-md">
-              <Search placeholder="Поиск проектов, гайдов, серверов..." />
+              <GlobalSearch placeholder="Поиск проектов, гайдов, серверов..." />
             </div>
           </div>
 
