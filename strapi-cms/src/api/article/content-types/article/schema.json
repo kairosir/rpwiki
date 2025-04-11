@@ -35,11 +35,10 @@
       "required": false,
       "allowedTypes": ["images"]
     },
-    "author": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "articles"
+    "lastEditedBy": {
+      "type": "enumeration",
+      "enum": ["moderator", "admin"],
+      "default": "moderator"
     },
     "category": {
       "type": "relation",
