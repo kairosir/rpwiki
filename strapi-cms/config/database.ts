@@ -5,7 +5,7 @@ const config: DatabaseConfig = {
     client: 'postgres',
     connection: {
       host: process.env.DATABASE_HOST,
-      port: process.env.DATABASE_PORT,
+      port: Number(process.env.DATABASE_PORT),
       database: process.env.DATABASE_NAME,
       user: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
@@ -13,10 +13,7 @@ const config: DatabaseConfig = {
         rejectUnauthorized: false
       },
     },
-    pool: {
-      min: 0,
-      max: 10,
-    },
+    debug: false,
   },
 };
 
