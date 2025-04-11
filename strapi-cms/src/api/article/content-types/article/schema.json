@@ -35,7 +35,7 @@
       "required": false,
       "allowedTypes": ["images"]
     },
-    "lastEditedBy": {
+    "editorRole": {
       "type": "enumeration",
       "enum": ["moderator", "admin"],
       "default": "moderator"

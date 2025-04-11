@@ -1,4 +1,3 @@
-import path from 'path';
 import { DatabaseConfig } from '@strapi/strapi';
 
 const config: DatabaseConfig = {
@@ -10,9 +9,9 @@ const config: DatabaseConfig = {
       database: process.env.DATABASE_NAME,
       user: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
-      ssl: process.env.NODE_ENV === 'production' ? {
+      ssl: {
         rejectUnauthorized: false
-      } : false,
+      },
     },
     pool: {
       min: 0,
