@@ -1,6 +1,4 @@
-import { DatabaseConfig } from '@strapi/strapi';
-
-const config: DatabaseConfig = {
+const config = {
   connection: {
     client: 'postgres',
     connection: {
