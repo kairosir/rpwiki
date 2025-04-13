@@ -1,22 +1,20 @@
-const config = {
+export default ({ env }) => ({
   connection: {
     client: 'postgres',
     connection: {
-      host: process.env.DATABASE_HOST || 'db.wlpawjhyybiwylghxnhw.supabase.co',
-      port: Number(process.env.DATABASE_PORT) || 5432,
-      database: process.env.DATABASE_NAME || 'postgres',
-      user: process.env.DATABASE_USERNAME || 'postgres',
-      password: process.env.DATABASE_PASSWORD,
-      ssl: {
+      host: env('DATABASE_HOST'),
+      port: env.int('DATABASE_PORT'),
+      database: env('DATABASE_NAME'),
+      user: env('DATABASE_USERNAME'),
+      password: env('DATABASE_PASSWORD'),
+      ssl: env('DATABASE_SSL') === 'true' ? {
         rejectUnauthorized: false
-      },
-      pool: {
-        min: 0,
-        max: 5
-      }
+      } : false,
+      extra: env('DATABASE_SSL') === 'true' ? {
+        ssl: {
+          rejectUnauthorized: false
+        }
+      } : {}
     },
-    debug: false,
   },
-};
-
-export default config;
+});
