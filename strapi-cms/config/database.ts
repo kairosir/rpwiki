@@ -2,7 +2,11 @@ export default ({ env }) => ({
   connection: {
     client: 'postgres',
     connection: {
-      connectionString: `postgresql://${env('DATABASE_USERNAME')}:${env('DATABASE_PASSWORD')}@${env('DATABASE_HOST')}:${env('DATABASE_PORT')}/${env('DATABASE_NAME')}?sslmode=require`,
+      host: 'aws-0-eu-west-2.pooler.supabase.com',
+      port: 6543,
+      database: env('DATABASE_NAME', 'postgres'),
+      user: 'postgres.wlpawjhyybiwylghxnhw',
+      password: env('DATABASE_PASSWORD'),
       ssl: {
         rejectUnauthorized: false
       }
